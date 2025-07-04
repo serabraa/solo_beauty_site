@@ -101,7 +101,7 @@ function Header() {
             ))}
             <a
               href="https://apnt.app/solo_beauty"
-              className="text-black bg-pink-500 text-white rounded-lg px-4 py-2 hover:bg-pink-600 transition"
+              className="text-white bg-pink-500 rounded-lg px-4 py-2 hover:bg-pink-600 transition"
               onClick={() => setMenuOpen(false)}
             >
               {t("book")}

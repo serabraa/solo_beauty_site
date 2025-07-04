@@ -39,7 +39,21 @@ i18next.use(initReactI18next).init({
           epilation:"Մազահեռացում",
           epilationDesc:"Վոսկային,Շուգարինգ,Էլեկտրոէպիլացիյա,Դիոդային և այլն",
           body:"Մարմին",
-          bodyDesc:"Վակուումային մասսաժ և այլն"
+          bodyDesc:"Վակուումային մասսաժ և այլն",
+        },
+        homet:
+        {
+          welcoming:"Բարի Գալուստ Solo Beauty ❤️",
+          introText:"Մեր ծառայությունները ձեզ են առաջարկում",
+        },
+        footer:
+        {
+          contactInfo:"Կոնտակներ",
+          address:"Հասցե: ",
+          addressName:"Ռիժկովի փողոց 3/1, Գյումրի, Հայաստան",
+          telephone:"+374 93 00 02 17",
+          days:"Երկուշաբթի-Կիրակի",
+          businessHours:"Աշխատանքային ժամեր"
         }
       },
     },

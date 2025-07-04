@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaInstagram, FaFacebook, FaTelegram } from 'react-icons/fa';
 
 function Footer() {
   const { t } = useTranslation();
@@ -7,16 +8,23 @@ function Footer() {
 
   return (
     <footer className="bg-black text-white py-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-        {/* Contact Info */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+        {/* Contact Info & Social Icons */}
         <div>
           <h4 className="font-semibold mb-2">{t('footer.contactInfo')}</h4>
-          <ul className="space-y-1 text-sm text-gray-300">
-            <li>{t('footer.address')}</li>
+          <ul className="space-y-1 text-sm text-gray-300 mb-4">
             <li>
-              <a href={`tel:${t('footer.phoneRaw')}`} className="hover:text-pink-500">
-                {t('footer.phone')}
-              </a>
+              <span className="font-semibold">Tel:</span>
+              <a href="tel:033025125" className="hover:text-pink-500 ml-1">033025125</a>,
+              <a href="tel:+37453988" className="hover:text-pink-500 ml-1">(+374)53988</a>
+            </li>
+            <li>
+              <span className="font-semibold">WhatsApp:</span>
+              <a href="https://wa.me/37493000217" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 ml-1">+37493000217</a>
+            </li>
+            <li>
+              <span className="font-semibold">Viber:</span>
+              <a href="viber://chat?number=+37493000217" className="hover:text-pink-500 ml-1">+37493000217</a>
             </li>
             <li>
               <a href={`mailto:${t('footer.email')}`} className="hover:text-pink-500">
@@ -24,27 +32,31 @@ function Footer() {
               </a>
             </li>
           </ul>
-        </div>
-
-        {/* Social Icons */}
-        <div className="flex flex-col items-start">
           <h4 className="font-semibold mb-2">{t('footer.followUs')}</h4>
           <div className="flex space-x-4 text-2xl">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
-              📸
+            <a href="https://www.instagram.com/solobeauty.gyumri/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+              <FaInstagram />
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
-              📘
+            <a href="https://www.facebook.com/solobeautygyumri" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+              <FaFacebook />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
-              🐦
+            <a href="https://t.me/solobeauty" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+              <FaTelegram />
             </a>
           </div>
         </div>
 
-        {/* Embedded Map */}
+        {/* Location, Address, Hours, Map */}
         <div>
           <h4 className="font-semibold mb-2">{t('footer.location')}</h4>
+          <div>
+              <span className="font-semibold">{t('footer.businessHours')}:</span>
+              <span className="ml-2">{t('footer.days')}: 09:00 - 21:00</span>
+            </div>
+          <div className="mb-2">
+            <span className="font-semibold">{t('footer.address')}</span>
+            <span>{t('footer.addressName')}</span>
+          </div>
           <div className="w-full aspect-w-4 aspect-h-3 overflow-hidden rounded-lg shadow-lg">
             <iframe
               title="BeautySalon Location"
