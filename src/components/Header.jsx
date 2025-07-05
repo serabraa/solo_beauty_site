@@ -9,9 +9,9 @@ function Header() {
   const navLinks = [
     { href: "#home", label: t("home") },
     { href: "#services", label: t("services") },
-    { href: "#gallery", label: t("gallery") },
+    // { href: "#gallery", label: t("gallery") },
     { href: "#pricing", label: t("pricelist") },
-    { href: "#contact", label: t("contact") },
+    { href: "#contact", label: t("contact.title") },
   ];
 
   const languages = [
@@ -20,17 +20,16 @@ function Header() {
   ];
 
   return (
-    <header className="sticky top-0 w-full bg-white shadow-md z-50">
+    <header className="sticky top-0 w-full bg-black border-b border-pink-500/20 shadow-md z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-        {<img src={logo} alt="BeautySalon Logo" className="h-10 w-auto" />}
-        <div className="font-light text-black outline-pink-500">
-          Solo Beauty
+        <div className="flex items-center space-x-3">
+          <img src={logo} alt="BeautySalon Logo" className="h-10 w-auto" />
         </div>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="text-black hover:text-pink-500">
+            <a key={link.href} href={link.href} className="text-white hover:text-pink-500 transition-colors font-medium">
               {link.label}
             </a>
           ))}
@@ -42,14 +41,14 @@ function Header() {
             <button
               key={lang.code}
               onClick={() => i18n.changeLanguage(lang.code)}
-              className="text-sm font-medium text-black hover:text-pink-500"
+              className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded"
             >
               {lang.label}
             </button>
           ))}
           <a
             href="https://apnt.app/solo_beauty"
-            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition"
+            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition font-semibold shadow-md border-2 border-pink-500/0 hover:border-pink-500"
           >
             {t("book")}
           </a>
@@ -58,7 +57,7 @@ function Header() {
         {/* Mobile menu button */}
         <button
           onClick={() => setMenuOpen((open) => !open)}
-          className="md:hidden text-black focus:outline-none"
+          className="md:hidden text-white focus:outline-none"
         >
           <svg
             className="h-6 w-6"
@@ -87,13 +86,13 @@ function Header() {
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200">
+        <div className="md:hidden bg-black border-t border-pink-500/20">
           <nav className="flex flex-col px-4 py-2 space-y-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-black hover:text-pink-500"
+                className="text-white hover:text-pink-500 transition-colors font-medium"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
@@ -101,7 +100,7 @@ function Header() {
             ))}
             <a
               href="https://apnt.app/solo_beauty"
-              className="text-white bg-pink-500 rounded-lg px-4 py-2 hover:bg-pink-600 transition"
+              className="text-white bg-pink-500 rounded-lg px-4 py-2 hover:bg-pink-600 transition font-semibold shadow-md border-2 border-pink-500/0 hover:border-pink-500"
               onClick={() => setMenuOpen(false)}
             >
               {t("book")}
@@ -114,7 +113,7 @@ function Header() {
                     i18n.changeLanguage(lang.code);
                     setMenuOpen(false);
                   }}
-                  className="text-sm font-medium text-black hover:text-pink-500"
+                  className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded"
                 >
                   {lang.label}
                 </button>
