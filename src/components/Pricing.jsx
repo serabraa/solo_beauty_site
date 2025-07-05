@@ -29,7 +29,7 @@ export default function Pricing() {
     },
     {
       name: t('pricing.services.makeup.name'),
-      price: "2000-15000",
+      price: "5000-15000",
       currency: "֏",
       description: t('pricing.services.makeup.description'),
       features: [
@@ -41,7 +41,7 @@ export default function Pricing() {
     },
     {
       name: t('pricing.services.eyelashes.name'),
-      price: "2000-20000",
+      price: "10000-20000",
       currency: "֏",
       description: t('pricing.services.eyelashes.description'),
       features: [
