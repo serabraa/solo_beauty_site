@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaInstagram, FaFacebook, FaTelegram, FaPhone, FaWhatsapp, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { SiViber } from 'react-icons/si';
+import ustaDevLogo from '../assets/ustadev.png';
 
 function Footer() {
   const { t } = useTranslation();
@@ -114,6 +115,15 @@ function Footer() {
         <p className="text-sm text-gray-400 font-medium">
           {t('footer.copy', { year })}
         </p>
+        <a
+          href="https://ustadevfront-production.up.railway.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center justify-center space-x-2 text-sm text-gray-400 hover:text-pink-500 transition-colors"
+        >
+          <span>{t('footer.devCredit')}</span>
+          <img src={ustaDevLogo} alt="UstaDev logo" className="h-20 w-auto" />
+        </a>
       </div>
     </footer>
   );

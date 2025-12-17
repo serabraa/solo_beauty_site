@@ -15,8 +15,8 @@ function Header() {
   ];
 
   const languages = [
-    { code: "ru", label: "RU" },
-    { code: "hy", label: "HY" },
+    { code: "ru", label: "RU", flag: "🇷🇺" },
+    { code: "hy", label: "AM", flag: "🇦🇲" },
   ];
 
   return (
@@ -41,9 +41,11 @@ function Header() {
             <button
               key={lang.code}
               onClick={() => i18n.changeLanguage(lang.code)}
-              className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded"
+              className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded inline-flex items-center gap-1"
+              aria-label={`Switch to ${lang.label}`}
             >
-              {lang.label}
+              <span aria-hidden="true">{lang.flag}</span>
+              <span>{lang.label}</span>
             </button>
           ))}
           <a
@@ -113,9 +115,11 @@ function Header() {
                     i18n.changeLanguage(lang.code);
                     setMenuOpen(false);
                   }}
-                  className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded"
+                  className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded inline-flex items-center gap-1"
+                  aria-label={`Switch to ${lang.label}`}
                 >
-                  {lang.label}
+                  <span aria-hidden="true">{lang.flag}</span>
+                  <span>{lang.label}</span>
                 </button>
               ))}
             </div>

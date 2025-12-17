@@ -57,7 +57,8 @@ i18next.use(initReactI18next).init({
           businessHours:"Աշխատանքային ժամեր",
           followUs:"Հետևեք Մեզ",
           getDirections:"Տեսնել Քարտեզը",
-          copy:"© {{year}} Solo Beauty. Բոլոր իրավունքները պաշտպանված են."
+          copy:"© {{year}} Solo Beauty. Բոլոր իրավունքները պաշտպանված են.",
+          devCredit:"Կայքը ստեղծված է UstaDev-ի կողմից"
         },
         contact: {
           title: "Կապ",
@@ -186,7 +187,8 @@ i18next.use(initReactI18next).init({
           businessHours:"Часы Работы",
           followUs:"Следите за Нами",
           getDirections:"Посмотреть Карту",
-          copy:"© {{year}} Solo Beauty. Все права защищены."
+          copy:"© {{year}} Solo Beauty. Все права защищены.",
+          devCredit:"Сайт разработали UstaDev"
         },
         contact: {
           title: "Связь",
