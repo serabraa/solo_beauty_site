@@ -137,17 +137,9 @@ i18next.use(initReactI18next).init({
         {
           nav:"Կարծիքներ",
           title:"Հաճախորդների Կարծիքները",
-          subtitle:"Ինչ են ասում մեր հաճախորդները Solo Beauty-ի մասին",
-          platforms:
-          {
-            googleCount:"Google-ի գնահատական",
-            yandexCount:"52 գնահատական",
-            gisCount:"17 գնահատական"
-          },
           cta:
           {
-            title:"Եղե՞լ եք մեզ մոտ",
-            description:"Կիսվեք ձեր փորձառությամբ և օգնեք մյուսներին ընտրություն կատարել։"
+            title:"Թողեք ձեր կարծիքը՝"
           }
         }
       },
@@ -284,17 +276,9 @@ i18next.use(initReactI18next).init({
         {
           nav:"Отзывы",
           title:"Отзывы Клиентов",
-          subtitle:"Что говорят о Solo Beauty наши клиенты",
-          platforms:
-          {
-            googleCount:"Рейтинг в Google",
-            yandexCount:"52 оценки",
-            gisCount:"17 оценок"
-          },
           cta:
           {
-            title:"Уже были у нас?",
-            description:"Поделитесь своими впечатлениями и помогите другим сделать выбор."
+            title:"Оставьте свой отзыв:"
           }
         }
       },
