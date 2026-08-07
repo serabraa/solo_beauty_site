@@ -138,6 +138,7 @@ i18next.use(initReactI18next).init({
           nav:"Կարծիքներ",
           title:"Հաճախորդների Կարծիքները",
           subtitle:"Ինչ են ասում մեր հաճախորդները Solo Beauty-ի մասին",
+          verifiedClient:"Հաստատված հաճախորդ",
           stats:
           {
             rating:"Գնահատական Google-ում",
@@ -292,6 +293,7 @@ i18next.use(initReactI18next).init({
           nav:"Отзывы",
           title:"Отзывы Клиентов",
           subtitle:"Что говорят о Solo Beauty наши клиенты",
+          verifiedClient:"Проверенный клиент",
           stats:
           {
             rating:"Рейтинг в Google",

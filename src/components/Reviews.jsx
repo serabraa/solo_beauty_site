@@ -1,7 +1,7 @@
 // src/components/Reviews.jsx
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaStar, FaQuoteLeft, FaGoogle, FaFacebook, FaArrowRight } from 'react-icons/fa';
+import { FaStar, FaQuoteLeft, FaGoogle, FaFacebook, FaArrowRight, FaCheckCircle } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -15,19 +15,26 @@ import 'aos/dist/aos.css';
  *  - susanna / yelena / sona : published on the salon's own booking profile
  *                              (apnt.app/profile/solo_beauty)
  *
+ * `source` must name the platform the review was actually published on —
+ * do not label a review "Google" unless it is on the Google listing.
+ *
+ * `rating` is the customer's own star count. These three are carried at 5
+ * pending confirmation against the source; correct any that differ.
+ *
  * To add a review: copy an existing object, add the matching text to the
  * `reviews.items` block in src/i18.js (both `hy` and `ru`), and confirm the
  * customer's star rating on the source platform before setting `rating`.
  */
 const reviews = [
-  { id: 'susanna', name: 'Susanna Vardanyan',  initials: 'SV', rating: 5, source: 'google' },
-  { id: 'yelena',  name: 'Yelena Grigoryan',   initials: 'YG', rating: 5, source: 'google' },
-  { id: 'sona',    name: 'Sona Hovhannisyan',  initials: 'SH', rating: 5, source: 'google' },
+  { id: 'susanna', name: 'Susanna Vardanyan',  initials: 'SV', rating: 5, source: 'booking' },
+  { id: 'yelena',  name: 'Yelena Grigoryan',   initials: 'YG', rating: 5, source: 'booking' },
+  { id: 'sona',    name: 'Sona Hovhannisyan',  initials: 'SH', rating: 5, source: 'booking' },
 ];
 
 const sourceMeta = {
-  google:   { Icon: FaGoogle,   label: 'Google' },
-  facebook: { Icon: FaFacebook, label: 'Facebook' },
+  google:   { Icon: FaGoogle,      labelKey: null, label: 'Google' },
+  facebook: { Icon: FaFacebook,    labelKey: null, label: 'Facebook' },
+  booking:  { Icon: FaCheckCircle, labelKey: 'reviews.verifiedClient', label: null },
 };
 
 /** Verified aggregates: 4.8 on Google, 40 reviews at 100% recommend on Facebook. */
@@ -98,7 +105,7 @@ export default function Reviews() {
         {/* Review cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {reviews.map((review, index) => {
-            const { Icon, label } = sourceMeta[review.source];
+            const { Icon, label, labelKey } = sourceMeta[review.source];
             return (
               <figure
                 key={review.id}
@@ -130,7 +137,7 @@ export default function Reviews() {
                     <span className="block font-semibold text-white text-sm">{review.name}</span>
                     <span className="flex items-center gap-1 text-xs text-gray-400">
                       <Icon aria-hidden="true" />
-                      {label}
+                      {labelKey ? t(labelKey) : label}
                     </span>
                   </span>
                 </figcaption>
