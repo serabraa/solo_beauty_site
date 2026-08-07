@@ -28,33 +28,32 @@ const platforms = [
  * markets and destroy the trust this section exists to build.
  * ------------------------------------------------------------------ */
 const reviews = [
-  { id: 'r1',  initials: 'L.S.', rating: 5, source: 'yandex', lang: 'en',
+  { id: 'r1',  initials: 'H.S.', rating: 5, source: 'google', lang: 'hy',
+    text: 'Անչափ շնորհակալ եմ բարձրակարգ սպասարկման և ջերմ վերաբերմունքի համար ❤️❤️❤️' },
+  { id: 'r2',  initials: 'L.S.', rating: 5, source: 'yandex', lang: 'en',
     text: 'I prefer Solo, the best beauty salon in Gyumri, the best service provided by professional masters ❤️' },
-  { id: 'r2',  initials: 'H.S.', rating: 5, source: '2gis', lang: 'hy',
-    text: 'Հրաշք միջավայր, պրոֆեսիոնալ թիմ, յուրովի մոտեցում յուրաքանչյուր հաճախորդին... Ընտի՜ր 👌' },
   { id: 'r3',  initials: 'A.P.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Самый лучший салон в Гюмри, с самыми профессиональными и внимательными мастерами. Всем рекомендую!' },
-  { id: 'r4',  initials: 'L.H.', rating: 5, source: 'yandex', lang: 'en',
-    text: 'The beauty salon where you always feel like home!' },
+  { id: 'r4',  initials: 'R.A.', rating: 5, source: 'google', lang: 'hy',
+    text: 'Հիանալի սպասարկում և անկաշկանդ մթնոլորտ։ Ապրեք աղջիկներ։' },
   { id: 'r5',  initials: 'A.U.', rating: 5, source: '2gis', lang: 'hy',
     text: 'Ամենագեղեցիկ մատնահարդարումը, որ երբևէ ունեցել եմ ❤️' },
-  { id: 'r6',  initials: 'A.B.', rating: 5, source: '2gis', lang: 'ru',
+  { id: 'r6',  initials: 'L.H.', rating: 5, source: 'yandex', lang: 'en',
+    text: 'The beauty salon where you always feel like home!' },
+  { id: 'r7',  initials: 'A.B.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Атмосфера класса люкс, обслуживание люкс, работают все профессиональные мастера, всегда приятно находиться в Solo ❤️' },
-  { id: 'r7',  initials: 'A.K.', rating: 5, source: 'yandex', lang: 'en',
-    text: 'The best in Gyumri 👍🏻' },
-  { id: 'r8',  initials: 'E.G.', rating: 5, source: '2gis', lang: 'ru',
+  { id: 'r8',  initials: 'N.B.', rating: 5, source: 'google', lang: 'ru',
+    text: 'Самый красивый маникюр и медицинская чистка только у Аракс ❤️' },
+  { id: 'r9',  initials: 'E.G.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Приятная атмосфера, вежливый персонал и качественное обслуживание. Работа выполнена аккуратно и профессионально.' },
-  { id: 'r9',  initials: 'N.B.', rating: 5, source: '2gis', lang: 'hy',
-    text: 'Հրաշալի ու պրոֆեսիոնալ թիմ է աշխատում ❤️' },
-  { id: 'r10', initials: 'S.V.', rating: 5, source: '2gis', lang: 'ru',
+  { id: 'r10', initials: 'A.K.', rating: 5, source: 'yandex', lang: 'en',
+    text: 'The best in Gyumri 👍🏻' },
+  { id: 'r11', initials: 'S.V.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Такой маникюр поднимает настроение на всю неделю! Спасибо SOLO 💅' },
-  { id: 'r11', initials: 'L.L.', rating: 5, source: '2gis', lang: 'en',
-    text: "Five stars isn't enough for Solo. Flawless service from the moment you walk in. Professional, talented, and incredibly welcoming." },
   { id: 'r12', initials: 'A.A.', rating: 5, source: '2gis', lang: 'hy',
     text: 'Հիանալի գեղեցկության սրահ շատ բարեհամբույր անձնակազմով։' },
-
-  /* Google reviews go here — see note in the section below. Example shape:
-     { id: 'g1', initials: 'X.Y.', rating: 5, source: 'google', lang: 'ru', text: '…' }, */
+  { id: 'r13', initials: 'L.L.', rating: 5, source: '2gis', lang: 'en',
+    text: "Five stars isn't enough for Solo. Flawless service from the moment you walk in. Professional, talented, and incredibly welcoming." },
 ];
 
 /* react-icons has no Yandex or 2GIS glyph — small brand marks instead of fake logos. */
