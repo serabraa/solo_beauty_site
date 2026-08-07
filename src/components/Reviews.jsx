@@ -10,10 +10,10 @@ import 'aos/dist/aos.css';
  * these are public claims and must match what each platform shows.
  * ------------------------------------------------------------------ */
 const platforms = [
-  { id: 'google', name: 'Google', rating: '4.8', url: 'https://maps.app.goo.gl/bz44w7t6oa5zqXrK9', brand: '#4285F4' },
-  { id: 'yandex', name: 'Yandex', rating: '5.0', url: 'https://yandex.com/maps/org/solo_beauty/1371921405/', brand: '#FC3F1D' },
+  { id: 'google', name: 'Google', rating: '4.8', count: 69, url: 'https://maps.app.goo.gl/bz44w7t6oa5zqXrK9', brand: '#4285F4' },
+  { id: 'yandex', name: 'Yandex', rating: '5.0', count: 52, url: 'https://yandex.com/maps/org/solo_beauty/1371921405/', brand: '#FC3F1D' },
   // wordmark: the brand mark already spells the name, so don't print it twice
-  { id: '2gis',   name: '2GIS',   rating: '4.9', url: 'https://2gis.am/ru/gyumri/firm/70000001090579585', brand: '#19AA1E', wordmark: true },
+  { id: '2gis',   name: '2GIS',   rating: '4.9', count: 17, url: 'https://2gis.am/ru/gyumri/firm/70000001090579585', brand: '#19AA1E', wordmark: true },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -148,6 +148,7 @@ export default function Reviews() {
                 : <span className="text-sm">{p.name}</span>}
               <span className="text-lg font-bold text-white">{p.rating}</span>
               <FaStar className="text-pink-500 text-sm" aria-hidden="true" />
+              <span className="text-xs text-gray-500">({p.count})</span>
             </a>
           ))}
         </div>
