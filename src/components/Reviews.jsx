@@ -12,7 +12,8 @@ import 'aos/dist/aos.css';
 const platforms = [
   { id: 'google', name: 'Google', rating: '4.8', url: 'https://maps.app.goo.gl/bz44w7t6oa5zqXrK9', brand: '#4285F4' },
   { id: 'yandex', name: 'Yandex', rating: '5.0', url: 'https://yandex.com/maps/org/solo_beauty/1371921405/', brand: '#FC3F1D' },
-  { id: '2gis',   name: '2GIS',   rating: '4.9', url: 'https://2gis.am/ru/gyumri/firm/70000001090579585', brand: '#19AA1E' },
+  // wordmark: the brand mark already spells the name, so don't print it twice
+  { id: '2gis',   name: '2GIS',   rating: '4.9', url: 'https://2gis.am/ru/gyumri/firm/70000001090579585', brand: '#19AA1E', wordmark: true },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -27,30 +28,33 @@ const platforms = [
  * markets and destroy the trust this section exists to build.
  * ------------------------------------------------------------------ */
 const reviews = [
-  { id: 'r1',  initials: 'L.L.', rating: 5, source: '2GIS', lang: 'en',
-    text: "Five stars isn't enough for Solo. Flawless service from the moment you walk in. Professional, talented, and incredibly welcoming." },
-  { id: 'r2',  initials: 'H.S.', rating: 5, source: '2GIS', lang: 'hy',
+  { id: 'r1',  initials: 'L.S.', rating: 5, source: 'yandex', lang: 'en',
+    text: 'I prefer Solo, the best beauty salon in Gyumri, the best service provided by professional masters ❤️' },
+  { id: 'r2',  initials: 'H.S.', rating: 5, source: '2gis', lang: 'hy',
     text: 'Հրաշք միջավայր, պրոֆեսիոնալ թիմ, յուրովի մոտեցում յուրաքանչյուր հաճախորդին... Ընտի՜ր 👌' },
-  { id: 'r3',  initials: 'A.P.', rating: 5, source: '2GIS', lang: 'ru',
+  { id: 'r3',  initials: 'A.P.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Самый лучший салон в Гюмри, с самыми профессиональными и внимательными мастерами. Всем рекомендую!' },
-  { id: 'r4',  initials: 'A.U.', rating: 5, source: '2GIS', lang: 'hy',
+  { id: 'r4',  initials: 'L.H.', rating: 5, source: 'yandex', lang: 'en',
+    text: 'The beauty salon where you always feel like home!' },
+  { id: 'r5',  initials: 'A.U.', rating: 5, source: '2gis', lang: 'hy',
     text: 'Ամենագեղեցիկ մատնահարդարումը, որ երբևէ ունեցել եմ ❤️' },
-  { id: 'r5',  initials: 'A.B.', rating: 5, source: '2GIS', lang: 'ru',
+  { id: 'r6',  initials: 'A.B.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Атмосфера класса люкс, обслуживание люкс, работают все профессиональные мастера, всегда приятно находиться в Solo ❤️' },
-  { id: 'r6',  initials: 'E.G.', rating: 5, source: '2GIS', lang: 'ru',
+  { id: 'r7',  initials: 'A.K.', rating: 5, source: 'yandex', lang: 'en',
+    text: 'The best in Gyumri 👍🏻' },
+  { id: 'r8',  initials: 'E.G.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Приятная атмосфера, вежливый персонал и качественное обслуживание. Работа выполнена аккуратно и профессионально.' },
-  { id: 'r7',  initials: 'N.B.', rating: 5, source: '2GIS', lang: 'hy',
+  { id: 'r9',  initials: 'N.B.', rating: 5, source: '2gis', lang: 'hy',
     text: 'Հրաշալի ու պրոֆեսիոնալ թիմ է աշխատում ❤️' },
-  { id: 'r8',  initials: 'S.V.', rating: 5, source: '2GIS', lang: 'ru',
+  { id: 'r10', initials: 'S.V.', rating: 5, source: '2gis', lang: 'ru',
     text: 'Такой маникюр поднимает настроение на всю неделю! Спасибо SOLO 💅' },
-  { id: 'r9',  initials: 'N.',   rating: 5, source: '2GIS', lang: 'ru',
-    text: 'Очень хороший мастер, работа чудесная. Атмосфера вообще супер. Все было очень хорошо ❤️' },
-  { id: 'r10', initials: 'A.A.', rating: 5, source: '2GIS', lang: 'hy',
+  { id: 'r11', initials: 'L.L.', rating: 5, source: '2gis', lang: 'en',
+    text: "Five stars isn't enough for Solo. Flawless service from the moment you walk in. Professional, talented, and incredibly welcoming." },
+  { id: 'r12', initials: 'A.A.', rating: 5, source: '2gis', lang: 'hy',
     text: 'Հիանալի գեղեցկության սրահ շատ բարեհամբույր անձնակազմով։' },
-  { id: 'r11', initials: 'L.S.', rating: 5, source: '2GIS', lang: 'en',
-    text: 'The best beauty salon in Gyumri. The best service in Gyumri.' },
-  { id: 'r12', initials: 'H.',   rating: 5, source: '2GIS', lang: 'ru',
-    text: 'Прекрасный салон красоты, где работают профессионалы.' },
+
+  /* Google reviews go here — see note in the section below. Example shape:
+     { id: 'g1', initials: 'X.Y.', rating: 5, source: 'google', lang: 'ru', text: '…' }, */
 ];
 
 /* react-icons has no Yandex or 2GIS glyph — small brand marks instead of fake logos. */
@@ -75,21 +79,34 @@ function PlatformMark({ id, brand }) {
 }
 
 function ReviewCard({ review }) {
+  const platform = platforms.find((p) => p.id === review.source);
   return (
-    <figure className="w-[280px] sm:w-[320px] flex-shrink-0 bg-[#18181b] rounded-2xl p-6 border border-[#232326] hover:border-pink-500/30 transition-colors duration-300 flex flex-col">
-      <div className="flex items-center gap-1 mb-4" aria-label={`${review.rating} / 5`}>
-        {Array.from({ length: 5 }, (_, i) => (
-          <FaStar key={i} aria-hidden="true" className={i < review.rating ? 'text-pink-500 text-sm' : 'text-[#3a3a3f] text-sm'} />
-        ))}
-      </div>
+    <figure className="w-[280px] sm:w-[320px] flex-shrink-0">
+      <a
+        href={platform.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="h-full bg-[#18181b] rounded-2xl p-6 border border-[#232326] hover:border-pink-500/40 transition-colors duration-300 flex flex-col"
+      >
+        <div className="flex items-center gap-1 mb-4" aria-label={`${review.rating} / 5`}>
+          {Array.from({ length: 5 }, (_, i) => (
+            <FaStar key={i} aria-hidden="true" className={i < review.rating ? 'text-pink-500 text-sm' : 'text-[#3a3a3f] text-sm'} />
+          ))}
+        </div>
 
-      <blockquote lang={review.lang} className="text-gray-300 text-sm leading-relaxed flex-1 mb-5">
-        {review.text}
-      </blockquote>
+        <blockquote lang={review.lang} className="text-gray-300 text-sm leading-relaxed flex-1 mb-5">
+          {review.text}
+        </blockquote>
 
-      <figcaption className="text-xs text-gray-500 font-medium">
-        {review.initials} · {review.source}
-      </figcaption>
+        <figcaption className="flex items-center gap-2 text-xs text-gray-500 font-medium">
+          <span>{review.initials}</span>
+          <span aria-hidden="true">·</span>
+          <PlatformMark id={platform.id} brand={platform.brand} />
+          {platform.wordmark
+            ? <span className="sr-only">{platform.name}</span>
+            : <span>{platform.name}</span>}
+        </figcaption>
+      </a>
     </figure>
   );
 }
@@ -107,13 +124,14 @@ export default function Reviews() {
 
       <div className="relative z-10">
         {/* Heading */}
-        <h2 className="text-4xl font-bold text-center text-pink-500 mb-8 px-6" data-aos="fade-up">
-          {t('reviews.title')}
-        </h2>
+        <div className="text-center px-6 mb-8" data-aos="fade-up">
+          <h2 className="text-4xl font-bold text-pink-500 mb-3">{t('reviews.title')}</h2>
+          <p className="text-gray-400">{t('reviews.subtitle')}</p>
+        </div>
 
         {/* Ratings strip */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 mb-12 px-6"
+          className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 mb-10 px-6"
           data-aos="fade-up"
         >
           {platforms.map((p) => (
@@ -125,7 +143,9 @@ export default function Reviews() {
               className="inline-flex items-center gap-2 text-gray-300 hover:text-pink-500 transition-colors"
             >
               <PlatformMark id={p.id} brand={p.brand} />
-              <span className="text-sm">{p.name}</span>
+              {p.wordmark
+                ? <span className="sr-only">{p.name}</span>
+                : <span className="text-sm">{p.name}</span>}
               <span className="text-lg font-bold text-white">{p.rating}</span>
               <FaStar className="text-pink-500 text-sm" aria-hidden="true" />
             </a>

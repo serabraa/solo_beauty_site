@@ -137,6 +137,7 @@ i18next.use(initReactI18next).init({
         {
           nav:"Կարծիքներ",
           title:"Հաճախորդների Կարծիքները",
+          subtitle:"Իրական կարծիքներ Google-ից, Yandex-ից և 2GIS-ից",
           cta:
           {
             title:"Թողեք ձեր կարծիքը՝"
@@ -276,6 +277,7 @@ i18next.use(initReactI18next).init({
         {
           nav:"Отзывы",
           title:"Отзывы Клиентов",
+          subtitle:"Настоящие отзывы с Google, Yandex и 2GIS",
           cta:
           {
             title:"Оставьте свой отзыв:"
