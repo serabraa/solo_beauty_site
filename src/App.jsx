@@ -4,6 +4,7 @@ import Gallery from './components/Gallery'
 import Footer from './components/Footer'
 import Services from './components/Services'
 import Pricing from './components/Pricing'
+import Reviews from './components/Reviews'
 import Contact from './components/Contact'
 import Home from './components/Home'
 
@@ -17,6 +18,7 @@ const App =() => {
     <Services />
     {/* <Gallery />   */}
     <Pricing />
+    <Reviews />
     <Contact />
     <Footer />
     </>
