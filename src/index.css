@@ -35,6 +35,19 @@
 .hover\:text-pink-500:hover {
   color: #feb0b7 !important;
 }
+/* === Reviews auto-scrolling carousel ===
+   The track holds two identical groups separated by the same 2rem gap used
+   inside each group, so total width = 2W + gap. Shifting by (50% + gap/2)
+   moves exactly one group width + one gap, which loops seamlessly. */
+@keyframes reviews-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 1rem));
+  }
+}
+
 /* in src/index.css */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
