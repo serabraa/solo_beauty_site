@@ -10,10 +10,9 @@ import 'aos/dist/aos.css';
  * these are public claims and must match what each platform shows.
  * ------------------------------------------------------------------ */
 const platforms = [
-  { id: 'google', name: 'Google', rating: '4.8', count: 69, url: 'https://maps.app.goo.gl/bz44w7t6oa5zqXrK9', brand: '#4285F4' },
-  { id: 'yandex', name: 'Yandex', rating: '5.0', count: 52, url: 'https://yandex.com/maps/org/solo_beauty/1371921405/', brand: '#FC3F1D' },
-  // wordmark: the brand mark already spells the name, so don't print it twice
-  { id: '2gis',   name: '2GIS',   rating: '4.9', count: 17, url: 'https://2gis.am/ru/gyumri/firm/70000001090579585', brand: '#19AA1E', wordmark: true },
+  { id: 'google', name: 'Google', rating: '4.8', count: '60+', url: 'https://maps.app.goo.gl/bz44w7t6oa5zqXrK9', brand: '#4285F4' },
+  { id: 'yandex', name: 'Yandex', rating: '5.0', count: '50+', url: 'https://yandex.com/maps/org/solo_beauty/1371921405/', brand: '#FC3F1D' },
+  { id: '2gis',   name: '2GIS',   rating: '4.9', count: '15+', url: 'https://2gis.am/ru/gyumri/firm/70000001090579585', brand: '#19AA1E' },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -30,7 +29,7 @@ const platforms = [
 const reviews = [
   { id: 'r1',  initials: 'H.S.', rating: 5, date: '06.2026', source: 'google', lang: 'hy',
     text: 'Անչափ շնորհակալ եմ բարձրակարգ սպասարկման և ջերմ վերաբերմունքի համար ❤️❤️❤️' },
-  { id: 'r2',  initials: 'L.S.', rating: 5, date: '07.2025', source: 'yandex', lang: 'en',
+  { id: 'r2',  initials: 'L.S.', rating: 5, date: '07.2026', source: 'yandex', lang: 'en',
     text: 'I prefer Solo, the best beauty salon in Gyumri, the best service provided by professional masters ❤️' },
   { id: 'r3',  initials: 'A.P.', rating: 5, date: '08.2026', source: '2gis', lang: 'ru',
     text: 'Самый лучший салон в Гюмри, с самыми профессиональными и внимательными мастерами. Всем рекомендую!' },
@@ -40,17 +39,17 @@ const reviews = [
     text: 'Ամենագեղեցիկ մատնահարդարումը, որ երբևէ ունեցել եմ ❤️' },
   { id: 'r6',  initials: 'L.H.', rating: 5, date: '06.2026', source: 'yandex', lang: 'en',
     text: 'The beauty salon where you always feel like home!' },
-  { id: 'r7',  initials: 'A.B.', rating: 5, date: '07.2025', source: '2gis', lang: 'ru',
+  { id: 'r7',  initials: 'A.B.', rating: 5, date: '07.2026', source: '2gis', lang: 'ru',
     text: 'Атмосфера класса люкс, обслуживание люкс, работают все профессиональные мастера, всегда приятно находиться в Solo ❤️' },
   { id: 'r8',  initials: 'N.B.', rating: 5, date: '06.2026', source: 'google', lang: 'ru',
     text: 'Самый красивый маникюр и медицинская чистка только у Аракс ❤️' },
   { id: 'r9',  initials: 'E.G.', rating: 5, date: '05.2026', source: '2gis', lang: 'ru',
     text: 'Приятная атмосфера, вежливый персонал и качественное обслуживание. Работа выполнена аккуратно и профессионально.' },
-  { id: 'r10', initials: 'A.K.', rating: 5, date: '07.2025', source: 'yandex', lang: 'en',
+  { id: 'r10', initials: 'A.K.', rating: 5, date: '07.2026', source: 'yandex', lang: 'en',
     text: 'The best in Gyumri 👍🏻' },
-  { id: 'r11', initials: 'S.V.', rating: 5, date: '07.2025', source: '2gis', lang: 'ru',
+  { id: 'r11', initials: 'S.V.', rating: 5, date: '07.2026', source: '2gis', lang: 'ru',
     text: 'Такой маникюр поднимает настроение на всю неделю! Спасибо SOLO 💅' },
-  { id: 'r12', initials: 'A.A.', rating: 5, date: '07.2025', source: '2gis', lang: 'hy',
+  { id: 'r12', initials: 'A.A.', rating: 5, date: '07.2026', source: '2gis', lang: 'hy',
     text: 'Հիանալի գեղեցկության սրահ շատ բարեհամբույր անձնակազմով։' },
   { id: 'r13', initials: 'L.L.', rating: 5, date: '08.2026', source: '2gis', lang: 'en',
     text: "Five stars isn't enough for Solo. Flawless service from the moment you walk in. Professional, talented, and incredibly welcoming." },
@@ -155,9 +154,6 @@ export default function Reviews() {
               className="inline-flex items-center gap-2 text-gray-300 hover:text-pink-500 transition-colors"
             >
               <PlatformMark id={p.id} brand={p.brand} />
-              {/* {p.wordmark
-                ? <span className="sr-only">{p.name}</span>
-                : <span className="text-sm">{p.name}</span>} */}
               <span className="text-lg font-bold text-white">{p.rating}</span>
               <FaStar className="text-pink-500 text-sm" aria-hidden="true" />
               <span className="text-xs text-gray-500">({p.count})</span>
