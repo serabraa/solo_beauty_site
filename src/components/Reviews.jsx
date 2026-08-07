@@ -28,31 +28,31 @@ const platforms = [
  * markets and destroy the trust this section exists to build.
  * ------------------------------------------------------------------ */
 const reviews = [
-  { id: 'r1',  initials: 'H.S.', rating: 5, source: 'google', lang: 'hy',
+  { id: 'r1',  initials: 'H.S.', rating: 5, date: '06.2026', source: 'google', lang: 'hy',
     text: 'Անչափ շնորհակալ եմ բարձրակարգ սպասարկման և ջերմ վերաբերմունքի համար ❤️❤️❤️' },
-  { id: 'r2',  initials: 'L.S.', rating: 5, source: 'yandex', lang: 'en',
+  { id: 'r2',  initials: 'L.S.', rating: 5, date: '07.2025', source: 'yandex', lang: 'en',
     text: 'I prefer Solo, the best beauty salon in Gyumri, the best service provided by professional masters ❤️' },
-  { id: 'r3',  initials: 'A.P.', rating: 5, source: '2gis', lang: 'ru',
+  { id: 'r3',  initials: 'A.P.', rating: 5, date: '08.2026', source: '2gis', lang: 'ru',
     text: 'Самый лучший салон в Гюмри, с самыми профессиональными и внимательными мастерами. Всем рекомендую!' },
-  { id: 'r4',  initials: 'R.A.', rating: 5, source: 'google', lang: 'hy',
+  { id: 'r4',  initials: 'R.A.', rating: 5, date: '06.2026', source: 'google', lang: 'hy',
     text: 'Հիանալի սպասարկում և անկաշկանդ մթնոլորտ։ Ապրեք աղջիկներ։' },
-  { id: 'r5',  initials: 'A.U.', rating: 5, source: '2gis', lang: 'hy',
+  { id: 'r5',  initials: 'A.U.', rating: 5, date: '05.2026', source: '2gis', lang: 'hy',
     text: 'Ամենագեղեցիկ մատնահարդարումը, որ երբևէ ունեցել եմ ❤️' },
-  { id: 'r6',  initials: 'L.H.', rating: 5, source: 'yandex', lang: 'en',
+  { id: 'r6',  initials: 'L.H.', rating: 5, date: '06.2026', source: 'yandex', lang: 'en',
     text: 'The beauty salon where you always feel like home!' },
-  { id: 'r7',  initials: 'A.B.', rating: 5, source: '2gis', lang: 'ru',
+  { id: 'r7',  initials: 'A.B.', rating: 5, date: '07.2025', source: '2gis', lang: 'ru',
     text: 'Атмосфера класса люкс, обслуживание люкс, работают все профессиональные мастера, всегда приятно находиться в Solo ❤️' },
-  { id: 'r8',  initials: 'N.B.', rating: 5, source: 'google', lang: 'ru',
+  { id: 'r8',  initials: 'N.B.', rating: 5, date: '06.2026', source: 'google', lang: 'ru',
     text: 'Самый красивый маникюр и медицинская чистка только у Аракс ❤️' },
-  { id: 'r9',  initials: 'E.G.', rating: 5, source: '2gis', lang: 'ru',
+  { id: 'r9',  initials: 'E.G.', rating: 5, date: '05.2026', source: '2gis', lang: 'ru',
     text: 'Приятная атмосфера, вежливый персонал и качественное обслуживание. Работа выполнена аккуратно и профессионально.' },
-  { id: 'r10', initials: 'A.K.', rating: 5, source: 'yandex', lang: 'en',
+  { id: 'r10', initials: 'A.K.', rating: 5, date: '07.2025', source: 'yandex', lang: 'en',
     text: 'The best in Gyumri 👍🏻' },
-  { id: 'r11', initials: 'S.V.', rating: 5, source: '2gis', lang: 'ru',
+  { id: 'r11', initials: 'S.V.', rating: 5, date: '07.2025', source: '2gis', lang: 'ru',
     text: 'Такой маникюр поднимает настроение на всю неделю! Спасибо SOLO 💅' },
-  { id: 'r12', initials: 'A.A.', rating: 5, source: '2gis', lang: 'hy',
+  { id: 'r12', initials: 'A.A.', rating: 5, date: '07.2025', source: '2gis', lang: 'hy',
     text: 'Հիանալի գեղեցկության սրահ շատ բարեհամբույր անձնակազմով։' },
-  { id: 'r13', initials: 'L.L.', rating: 5, source: '2gis', lang: 'en',
+  { id: 'r13', initials: 'L.L.', rating: 5, date: '08.2026', source: '2gis', lang: 'en',
     text: "Five stars isn't enough for Solo. Flawless service from the moment you walk in. Professional, talented, and incredibly welcoming." },
 ];
 
@@ -80,33 +80,46 @@ function PlatformMark({ id, brand }) {
 function ReviewCard({ review }) {
   const platform = platforms.find((p) => p.id === review.source);
   return (
-    <figure className="w-[280px] sm:w-[320px] flex-shrink-0">
+    <article className="w-[280px] sm:w-[320px] flex-shrink-0">
       <a
         href={platform.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="h-full bg-[#18181b] rounded-2xl p-6 border border-[#232326] hover:border-pink-500/40 transition-colors duration-300 flex flex-col"
+        aria-label={`${review.initials}, ${review.rating}/5, ${platform.name}`}
+        className="h-full bg-[#18181b] rounded-2xl p-5 border border-[#232326] hover:border-pink-500/40 transition-colors duration-300 flex flex-col"
       >
-        <div className="flex items-center gap-1 mb-4" aria-label={`${review.rating} / 5`}>
-          {Array.from({ length: 5 }, (_, i) => (
-            <FaStar key={i} aria-hidden="true" className={i < review.rating ? 'text-pink-500 text-sm' : 'text-[#3a3a3f] text-sm'} />
-          ))}
+        {/* Attribution first — a review is a person vouching for you, so
+            lead with the person the way every review platform does. */}
+        <div className="flex items-start gap-3 mb-4">
+          <span
+            className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-pink-500 text-black font-bold text-xs flex-shrink-0"
+            aria-hidden="true"
+          >
+            {review.initials.replace(/\./g, '')}
+          </span>
+
+          <span className="flex-1 min-w-0">
+            <span className="block text-sm font-semibold text-white leading-tight">{review.initials}</span>
+            <span className="flex items-center gap-2 mt-1">
+              <span className="flex gap-0.5" aria-hidden="true">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <FaStar key={i} className={i < review.rating ? 'text-amber-400 text-xs' : 'text-[#3a3a3f] text-xs'} />
+                ))}
+              </span>
+              <span className="text-[11px] text-gray-500 leading-none">{review.date}</span>
+            </span>
+          </span>
+
+          <span className="flex-shrink-0 mt-0.5">
+            <PlatformMark id={platform.id} brand={platform.brand} />
+          </span>
         </div>
 
-        <blockquote lang={review.lang} className="text-gray-300 text-sm leading-relaxed flex-1 mb-5">
+        <blockquote lang={review.lang} className="text-gray-300 text-sm leading-relaxed">
           {review.text}
         </blockquote>
-
-        <figcaption className="flex items-center gap-2 text-xs text-gray-500 font-medium">
-          <span>{review.initials}</span>
-          <span aria-hidden="true">·</span>
-          <PlatformMark id={platform.id} brand={platform.brand} />
-          {platform.wordmark
-            ? <span className="sr-only">{platform.name}</span>
-            : <span>{platform.name}</span>}
-        </figcaption>
       </a>
-    </figure>
+    </article>
   );
 }
 
@@ -142,9 +155,9 @@ export default function Reviews() {
               className="inline-flex items-center gap-2 text-gray-300 hover:text-pink-500 transition-colors"
             >
               <PlatformMark id={p.id} brand={p.brand} />
-              {p.wordmark
+              {/* {p.wordmark
                 ? <span className="sr-only">{p.name}</span>
-                : <span className="text-sm">{p.name}</span>}
+                : <span className="text-sm">{p.name}</span>} */}
               <span className="text-lg font-bold text-white">{p.rating}</span>
               <FaStar className="text-pink-500 text-sm" aria-hidden="true" />
               <span className="text-xs text-gray-500">({p.count})</span>
