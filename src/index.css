@@ -35,6 +35,38 @@
 .hover\:text-pink-500:hover {
   color: #feb0b7 !important;
 }
+/* === In-page anchor navigation ===
+   Without smooth scrolling an anchor jump lands instantly, so AOS never
+   receives the scroll events it uses to reveal elements — the target
+   section renders blank at opacity 0. Smooth scrolling fixes that and
+   feels better; scroll-margin-top clears the 64px sticky header. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* === Reviews auto-scrolling carousel ===
+   The track holds two identical groups separated by the same 2rem gap used
+   inside each group, so total width = 2W + gap. Shifting by (50% + gap/2)
+   moves exactly one group width + one gap, which loops seamlessly. */
+@keyframes reviews-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 1rem));
+  }
+}
+
 /* in src/index.css */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;

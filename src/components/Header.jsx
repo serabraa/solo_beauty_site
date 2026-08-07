@@ -11,6 +11,7 @@ function Header() {
     { href: "#services", label: t("services") },
     // { href: "#gallery", label: t("gallery") },
     { href: "#pricing", label: t("pricelist") },
+    { href: "#reviews", label: t("reviews.nav") },
     { href: "#contact", label: t("contact.title") },
   ];
 

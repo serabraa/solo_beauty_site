@@ -124,10 +124,14 @@ export default function Pricing() {
                   ))}
                 </ul>
                 
-                <button className="w-full py-3 bg-black text-white rounded-xl font-semibold hover:text-pink-500 hover:shadow-[0_4px_16px_0_rgba(236,72,153,0.3)] transition-all duration-300 border border-[#232326] hover:border-pink-500/30 flex items-center justify-center mt-auto">
+                <a
+                  href="#contact"
+                  aria-label={`${t('pricing.bookNow')} — ${service.name}`}
+                  className="w-full py-3 bg-black text-white rounded-xl font-semibold hover:text-pink-500 hover:shadow-[0_4px_16px_0_rgba(236,72,153,0.3)] transition-all duration-300 border border-[#232326] hover:border-pink-500/30 flex items-center justify-center mt-auto"
+                >
                   {t('pricing.bookNow')}
                   <FaArrowRight className="ml-2 text-pink-500" />
-                </button>
+                </a>
               </div>
             </div>
           ))}
