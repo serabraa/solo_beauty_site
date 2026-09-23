@@ -15,10 +15,10 @@ export default function Home() {
     <section
       id="home"
       className="relative h-screen bg-black flex flex-col items-center justify-center overflow-hidden"
-      aria-label={t('home.sectionLabel') || 'Home section'}
+      aria-label={t('home')}
     >
       {/* Visually hidden site title for screen readers */}
-      <h1 className="sr-only">{t('siteTitle') || 'Solo Beauty'}</h1>
+      <h1 className="sr-only">{t('siteTitle')}</h1>
 
       {/* Logo */}
       <div className="relative mb-8 flex justify-center">
