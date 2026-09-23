@@ -24,7 +24,7 @@ function Header() {
     <header className="sticky top-0 w-full bg-black border-b border-pink-500/20 shadow-md z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center space-x-3">
-          <img src={logo} alt="BeautySalon Logo" className="h-10 w-auto" />
+          <img src={logo} alt="Solo Beauty" className="h-10 w-auto" />
         </div>
 
         {/* Desktop nav */}

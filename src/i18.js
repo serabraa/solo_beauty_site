@@ -7,6 +7,7 @@ i18next.use(initReactI18next).init({
   resources: {
     hy: {
       translation: {
+        siteTitle: "Solo Beauty — գեղեցկության սրահ Գյումրիում",
         welcome: "Բարի գալուստ Solo Beauty",
         services: "Մեր Ծառայությունները",
         book: "Ամրագրեք հիմա",
@@ -166,6 +167,7 @@ i18next.use(initReactI18next).init({
     },
     ru: {
       translation: {
+        siteTitle: "Solo Beauty — салон красоты в Гюмри",
         welcome: "Добро Пожаловать в Solo Beauty",
         services: "Услуги",
         book: "Бронировка",
