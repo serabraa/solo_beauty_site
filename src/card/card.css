@@ -1,0 +1,477 @@
+/* ================================================================== *
+ * /card/ — cardholder discount page
+ * Same palette as the main site: black ground, #feb0b7 pink,
+ * #18181b surfaces, #232326 hairlines, system-ui type.
+ * ================================================================== */
+
+:root {
+  --offer-pink: #feb0b7;
+  --offer-pink-deep: #e699a2;
+  --offer-surface: #18181b;
+  --offer-line: #232326;
+  --offer-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* System font first, like the rest of the site; Noto Sans Armenian only
+     fills in Armenian glyphs on systems whose UI font lacks them. */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Armenian", "Noto Sans", Helvetica, Arial, sans-serif;
+  background-color: #000;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+}
+
+/* ------------------------------------------------------------------ */
+/* Page frame                                                          */
+/* ------------------------------------------------------------------ */
+
+.offer-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding:
+    max(1rem, env(safe-area-inset-top))
+    max(1.25rem, env(safe-area-inset-right))
+    max(1.5rem, env(safe-area-inset-bottom))
+    max(1.25rem, env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip;
+}
+
+/* Soft pink bloom behind the card — same device as the home hero. */
+.offer-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 50% 42%, rgba(254, 176, 183, 0.14), transparent 70%),
+    radial-gradient(circle at 15% 90%, rgba(236, 72, 153, 0.05), transparent 50%);
+}
+
+.offer-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 4.5rem;
+}
+
+.offer-logo {
+  display: block;
+  width: 4.5rem;
+  aspect-ratio: 2031 / 1989;
+  background: var(--offer-pink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Language switcher — quiet, top-right                                */
+/* ------------------------------------------------------------------ */
+
+.offer-lang {
+  position: absolute;
+  top: 0.25rem;
+  right: 0;
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--offer-line);
+  border-radius: 999px;
+  background: rgba(24, 24, 27, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.offer-lang button {
+  min-width: 2.5rem;
+  padding: 0.3rem 0.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #71717a;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.offer-lang button:hover {
+  color: #d4d4d8;
+}
+
+.offer-lang button.is-active {
+  background: rgba(254, 176, 183, 0.14);
+  color: var(--offer-pink);
+}
+
+.offer-lang button:focus-visible {
+  outline: 2px solid var(--offer-pink);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Main column                                                         */
+/* ------------------------------------------------------------------ */
+
+.offer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem 0 2rem;
+}
+
+.offer-intro {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.offer-eyebrow {
+  margin: 0 auto 0.625rem;
+  max-width: 20rem;
+  text-wrap: balance;
+  color: var(--offer-pink);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+}
+
+.offer-congrats {
+  margin: 0;
+  color: #fff;
+  font-size: 1.625rem;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.offer-congrats-text {
+  margin: 0.375rem auto 0;
+  max-width: 19rem;
+  text-wrap: balance;
+  color: #a1a1aa;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* The card                                                            */
+/* ------------------------------------------------------------------ */
+
+.offer-card-stage {
+  perspective: 1200px;
+}
+
+.offer-card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1.586; /* ISO/IEC 7810 ID-1, the proportion of a real card */
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(254, 176, 183, 0.16), transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, rgba(254, 176, 183, 0.07), transparent 60%),
+    linear-gradient(145deg, #1f1f23 0%, #141416 55%, #0b0b0c 100%);
+  border: 1px solid rgba(254, 176, 183, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 1px 0 rgba(0, 0, 0, 0.8),
+    0 24px 48px -16px rgba(0, 0, 0, 0.9),
+    0 18px 60px -20px rgba(254, 176, 183, 0.28);
+}
+
+/* Fine inner frame, like the foil border on a printed card */
+.offer-card::after {
+  content: "";
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(254, 176, 183, 0.08);
+  pointer-events: none;
+}
+
+/* Oversized butterfly bleeding off the right edge */
+.offer-card-watermark {
+  position: absolute;
+  right: -18%;
+  top: -10%;
+  width: 78%;
+  aspect-ratio: 2031 / 1989;
+  background: linear-gradient(160deg, rgba(254, 176, 183, 0.1), rgba(254, 176, 183, 0.02));
+  pointer-events: none;
+}
+
+.offer-card-top,
+.offer-card-bottom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.offer-card-logo {
+  display: block;
+  flex-shrink: 0;
+  width: 2.25rem;
+  aspect-ratio: 2031 / 1989;
+  background: linear-gradient(135deg, #fff 0%, var(--offer-pink) 60%);
+}
+
+.offer-card-name {
+  min-width: 0;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.offer-card-value {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.offer-percent {
+  display: inline-flex;
+  align-items: flex-start;
+  font-size: clamp(3.75rem, 21vw, 5.25rem);
+  font-weight: 200;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: lining-nums;
+  /* Foil: pink → near-white → pink */
+  background: linear-gradient(100deg, var(--offer-pink) 0%, #fff4f5 45%, var(--offer-pink) 70%, var(--offer-pink-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.offer-percent-sign {
+  margin-left: 0.06em;
+  font-size: 0.5em;
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.offer-off {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.offer-card-bottom {
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(254, 176, 183, 0.12);
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.offer-card-brand {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+/* One-time light sweep across the card after it lands */
+.offer-card-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.09) 48%, rgba(254, 176, 183, 0.08) 52%, transparent 65%);
+  transform: translateX(-120%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Copy under the card                                                 */
+/* ------------------------------------------------------------------ */
+
+.offer-copy {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* The instruction to act on — second only to the card itself.
+   Emphasis comes from type scale and a pink highlight, not a box. */
+.offer-rule {
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin: 0 auto 1.25rem;
+  background: linear-gradient(90deg, transparent, var(--offer-pink), transparent);
+}
+
+.offer-validity {
+  margin: 0 auto;
+  max-width: 21rem;
+  text-wrap: balance;
+  color: #fff;
+  font-size: 1.1875rem;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.45;
+}
+
+.offer-hl {
+  color: var(--offer-pink);
+  font-weight: 500;
+}
+
+.offer-howto {
+  margin: 0 0 1.25rem;
+  color: #a1a1aa;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------------------------ */
+/* Terms                                                               */
+/* ------------------------------------------------------------------ */
+
+.offer-terms {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--offer-line);
+}
+
+.offer-terms h2 {
+  margin: 0 0 0.625rem;
+  color: #a1a1aa;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.offer-terms ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.375rem;
+}
+
+.offer-terms li {
+  position: relative;
+  padding-left: 0.875rem;
+  color: #71717a;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.offer-terms li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(254, 176, 183, 0.5);
+}
+
+/* ------------------------------------------------------------------ */
+/* Larger screens: same column, a touch more air                       */
+/* ------------------------------------------------------------------ */
+
+@media (min-width: 640px) {
+  .offer-page {
+    padding-top: 2rem;
+  }
+  .offer-card {
+    padding: 1.5rem 1.625rem;
+  }
+}
+
+/* Very narrow phones (≤ 340px): keep the card from crowding */
+@media (max-width: 340px) {
+  .offer-card {
+    padding: 1rem 1.125rem;
+  }
+  .offer-card-watermark {
+    width: 70%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
+
+@keyframes offer-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes offer-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes offer-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) rotateX(14deg) scale(0.96);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes offer-percent-in {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+    letter-spacing: 0.08em;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    letter-spacing: -0.04em;
+    filter: none;
+  }
+}
+
+@keyframes offer-shine {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .offer-anim--logo    { animation: offer-fade 0.8s var(--offer-ease) both; }
+  .offer-anim--text    { animation: offer-rise 0.7s var(--offer-ease) 0.2s both; }
+  .offer-anim--card    { animation: offer-card-in 1s var(--offer-ease) 0.25s both; transform-origin: 50% 100%; }
+  .offer-anim--percent { animation: offer-percent-in 0.9s var(--offer-ease) 0.7s both; }
+  .offer-copy.offer-anim--text { animation-delay: 0.9s; }
+  .offer-anim--terms   { animation: offer-fade 0.8s ease 1.2s both; }
+  .offer-card-shine    { animation: offer-shine 1.4s ease-in-out 1.4s both; }
+
+  /* After a language switch: skip the staged entrance, just cross-fade
+     the re-mounted text. */
+  .is-settled .offer-anim { animation: none; }
+  .is-settled .offer-swap { animation: offer-fade 0.35s ease both; }
+}
