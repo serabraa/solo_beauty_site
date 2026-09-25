@@ -90,7 +90,7 @@ export default function CardOffer() {
 
             <div className="offer-card-value">
               <span className="offer-percent offer-anim offer-anim--percent">
-                15<span className="offer-percent-sign">%</span>
+                30<span className="offer-percent-sign">%</span>
               </span>
               <span key={`off-${lang}`} className="offer-off offer-swap">
                 {t('cardOffer.off')}
