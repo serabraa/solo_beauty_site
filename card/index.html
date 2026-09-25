@@ -21,13 +21,10 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-DWHP6DVX2S');
-      // The printed QR code links to
-      //   /card/?utm_source=qr&utm_medium=print&utm_campaign=bonus_card
-      // GA files those visits under source "qr"; this event counts each scan
-      // on its own so it can be marked as a key event in GA.
-      if (new URLSearchParams(location.search).get('utm_source') === 'qr') {
-        gtag('event', 'qr_scan', { campaign: 'bonus_card' });
-      }
+      // The printed QR code links to plain https://solobeauty.am/card/ and
+      // this page is noindex and linked from nowhere else, so every visit is
+      // counted as a scan. The event can be marked as a key event in GA.
+      gtag('event', 'qr_scan', { campaign: 'bonus_card' });
     </script>
   </head>
   <body>
