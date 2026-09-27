@@ -391,6 +391,31 @@ body {
   background: rgba(254, 176, 183, 0.5);
 }
 
+/* Developer credit — the quietest line on the page */
+.offer-credit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  color: #52525b;
+  font-size: 0.6875rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.offer-credit:hover,
+.offer-credit:focus-visible {
+  color: var(--offer-pink);
+}
+
+.offer-credit-logo {
+  display: block;
+  height: 1.75rem;
+  aspect-ratio: 530 / 750;
+  background: currentColor;
+}
+
 /* ------------------------------------------------------------------ */
 /* Larger screens: same column, a touch more air                       */
 /* ------------------------------------------------------------------ */
