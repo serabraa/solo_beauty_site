@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import logo from '../assets/solo_logo.png';
+import ustaDevLogo from '../assets/ustadev.svg';
 
 const languages = [
   { code: 'hy', label: 'Հայ' },
@@ -119,6 +120,23 @@ export default function CardOffer() {
         <ul>
           {Array.isArray(terms) && terms.map((term) => <li key={term}>{term}</li>)}
         </ul>
+
+        <a
+          href="https://ustadevfront-production.up.railway.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="offer-credit"
+        >
+          <span>{t('footer.devCredit')}</span>
+          <span
+            className="offer-credit-logo"
+            style={{
+              WebkitMask: `url(${ustaDevLogo}) center / contain no-repeat`,
+              mask: `url(${ustaDevLogo}) center / contain no-repeat`,
+            }}
+            aria-hidden="true"
+          />
+        </a>
       </footer>
     </div>
   );
