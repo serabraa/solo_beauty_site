@@ -43,7 +43,7 @@ i18next.use(initReactI18next).init({
         },
         homet:
         {
-          welcoming:"Բարի Գալուստ Solo Beauty ❤️",
+          welcoming:"Բարի Գալուստ",
           introText:"Մենք առաջարկում ենք յուրահատուկ որակ",
           services:"Տեսնել մեր ծառայությունները",
         },
@@ -203,7 +203,7 @@ i18next.use(initReactI18next).init({
         },
         homet:
         {
-          welcoming:"Добро Пожаловать в Solo Beauty ❤️",
+          welcoming:"Добро Пожаловать в",
           introText:"Мы предлагаем уникальное качество",
           services:"Посмотреть наши услуги",
         },
