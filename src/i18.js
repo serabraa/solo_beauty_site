@@ -146,7 +146,7 @@ i18next.use(initReactI18next).init({
         },
         cardOffer:
         {
-          pageTitle:"15% զեղչ քարտապանների համար — Solo Beauty",
+          pageTitle:"30% զեղչ քարտապանների համար — Solo Beauty",
           languageLabel:"Լեզու",
           congratsTitle:"Շնորհավորո՜ւմ ենք",
           congratsText:"Դուք ստացաք Solo Beauty-ի նվեր քարտ",
@@ -306,7 +306,7 @@ i18next.use(initReactI18next).init({
         },
         cardOffer:
         {
-          pageTitle:"Скидка 15% для владельцев карты — Solo Beauty",
+          pageTitle:"Скидка 30% для владельцев карты — Solo Beauty",
           languageLabel:"Язык",
           congratsTitle:"Поздравляем!",
           congratsText:"Вы — обладатель подарочной карты Solo Beauty",
