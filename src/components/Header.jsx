@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import logo from "../assets/solo_logo.png";
+import LogoMark from "./LogoMark";
 
 function Header() {
   const { t, i18n } = useTranslation();
@@ -24,7 +24,7 @@ function Header() {
     <header className="sticky top-0 w-full bg-black border-b border-pink-500/20 shadow-md z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center space-x-3">
-          <img src={logo} alt="Solo Beauty" className="h-10 w-auto" />
+          <LogoMark className="h-10 bg-pink-500" />
         </div>
 
         {/* Desktop nav */}
