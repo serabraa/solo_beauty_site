@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaInstagram, FaFacebook, FaTelegram, FaPhone, FaWhatsapp, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { SiViber } from 'react-icons/si';
-import ustaDevLogo from '../assets/ustadev.png';
+import ustaDevLogo from '../assets/ustadev.svg';
 
 function Footer() {
   const { t } = useTranslation();
@@ -122,7 +122,18 @@ function Footer() {
           className="mt-4 inline-flex items-center justify-center space-x-2 text-sm text-gray-400 hover:text-pink-500 transition-colors"
         >
           <span>{t('footer.devCredit')}</span>
-          <img src={ustaDevLogo} alt="UstaDev logo" className="h-20 w-auto" />
+          {/* Line-art logo used as a mask so it takes the link's text colour
+              (grey, pink on hover) — the SVG itself is black on transparent. */}
+          <span
+            role="img"
+            aria-label="UstaDev logo"
+            className="h-20 bg-current"
+            style={{
+              aspectRatio: '530 / 750',
+              WebkitMask: `url(${ustaDevLogo}) center / contain no-repeat`,
+              mask: `url(${ustaDevLogo}) center / contain no-repeat`,
+            }}
+          />
         </a>
       </div>
     </footer>
