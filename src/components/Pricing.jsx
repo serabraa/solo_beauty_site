@@ -162,7 +162,7 @@ export default function Pricing() {
         <div className="relative w-full h-full bg-white">
           <iframe
             title="Full Price List"
-            src="https://heyzine.com/flip-book/97ec891915.html"
+            src="https://heyzine.com/flip-book/f73b8b1dcb.html"
             className="w-full h-full"
             allowFullScreen
             loading="lazy"
