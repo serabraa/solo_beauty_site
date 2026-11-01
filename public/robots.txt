@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Search crawlers (OAI-SearchBot, Googlebot, Bingbot and PerplexityBot)
+# inherit the public allow rule. Training permissions are independent;
+# this change preserves the existing policy rather than changing consent.
+# /card/ stays crawlable so crawlers can see its noindex meta directive.
+
 Sitemap: https://solobeauty.am/sitemap.xml

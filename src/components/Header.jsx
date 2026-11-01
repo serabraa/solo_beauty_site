@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import LogoMark from "./LogoMark";
 
 function Header() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
@@ -16,8 +16,8 @@ function Header() {
   ];
 
   const languages = [
-    { code: "ru", label: "RU", flag: "🇷🇺" },
-    { code: "hy", label: "AM", flag: "🇦🇲" },
+    { code: "ru", label: "RU", flag: "🇷🇺", href: '/ru/' },
+    { code: "hy", label: "AM", flag: "🇦🇲", href: '/' },
   ];
 
   return (
@@ -39,15 +39,16 @@ function Header() {
         {/* Language & CTA desktop */}
         <div className="hidden md:flex items-center space-x-4">
           {languages.map((lang) => (
-            <button
+            <a
               key={lang.code}
-              onClick={() => i18n.changeLanguage(lang.code)}
+              href={lang.href}
+              hrefLang={lang.code}
               className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded inline-flex items-center gap-1"
               aria-label={`Switch to ${lang.label}`}
             >
               <span aria-hidden="true">{lang.flag}</span>
               <span>{lang.label}</span>
-            </button>
+            </a>
           ))}
           <a
             href="https://apnt.app/solo_beauty"
@@ -110,18 +111,17 @@ function Header() {
             </a>
             <div className="flex items-center space-x-4 pt-2">
               {languages.map((lang) => (
-                <button
+                <a
                   key={lang.code}
-                  onClick={() => {
-                    i18n.changeLanguage(lang.code);
-                    setMenuOpen(false);
-                  }}
+                  href={lang.href}
+                  hrefLang={lang.code}
+                  onClick={() => setMenuOpen(false)}
                   className="text-sm font-medium text-white hover:text-pink-500 transition-colors border border-transparent px-2 py-1 rounded inline-flex items-center gap-1"
                   aria-label={`Switch to ${lang.label}`}
                 >
                   <span aria-hidden="true">{lang.flag}</span>
                   <span>{lang.label}</span>
-                </button>
+                </a>
               ))}
             </div>
           </nav>
