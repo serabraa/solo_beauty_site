@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Local AI visibility capture data; keep the written reports in Git.
+docs/ai-visibility-runs/**/*.json
+docs/ai-visibility-runs/**/*.png
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

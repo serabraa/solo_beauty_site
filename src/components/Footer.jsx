@@ -29,7 +29,7 @@ function Footer() {
                   <span className="text-gray-600">•</span>
                   <a href="tel:033025125" className="text-white hover:text-pink-500 underline underline-offset-4 transition-colors duration-200 font-medium">033025125</a>
                   <span className="text-gray-600">•</span>
-                  <a href="tel:+37453988" className="text-white hover:text-pink-500 underline underline-offset-4 transition-colors duration-200 font-medium">(+374)53988</a>
+                  <a href="tel:+37431253988" className="text-white hover:text-pink-500 underline underline-offset-4 transition-colors duration-200 font-medium">+374 312 53988</a>
                 </div>
               </li>
               <li className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 p-3 rounded-xl">
