@@ -47,7 +47,7 @@ for language, path, phrase in [('hy', '/', 'Մեր Ծառայություննե�
     assert phrase in ''.join(page.text)
     assert len(page.find('meta', name='description')) == 1
     assert page.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + path}]
-    expected = {'hy': ORIGIN + '/', 'ru': ORIGIN + '/ru/', 'hy-Latn': ORIGIN + '/latin/', 'x-default': ORIGIN + '/'}
+    expected = {'hy': ORIGIN + '/', 'ru': ORIGIN + '/ru/', 'x-default': ORIGIN + '/'}
     assert {a['hreflang']: a['href'] for a in page.find('link', rel='alternate')} == expected
     assert page.find('meta', property='og:url')[0]['content'] == ORIGIN + path
     assert not page.find('meta', name='robots')
@@ -80,7 +80,7 @@ latin = Page((DIST / 'latin/index.html').read_text())
 assert latin.find('html')[0]['lang'] == 'hy-Latn'
 assert len(latin.find('title')) == len(latin.find('h1')) == len(latin.find('meta', name='description')) == 1
 assert latin.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + '/latin/'}]
-assert {a['hreflang']: a['href'] for a in latin.find('link', rel='alternate')} == expected
+assert not latin.find('link', rel='alternate')
 assert all(term in ''.join(latin.text) for term in ('Gexeckutyan srah Gyumrium', 'Mazeri nerkum', 'Piercing'))
 assert latin.find('a', href='tel:+37493000217')
 assert latin.find('a', href='https://apnt.app/solo_beauty')
@@ -88,46 +88,48 @@ assert latin.json[0]['@graph'][1]['inLanguage'] == 'hy-Latn'
 assert not latin.find('meta', name='robots')
 print('PASS /latin/: static Latin Armenian text, metadata, schema, links')
 
-service_paths = {
-    f'{prefix}/services/{slug}/'
-    for prefix in ('', '/ru')
-    for slug in ('manicure-pedicure', 'hair-coloring')
-}
+service_paths = {'/services/', '/ru/services/'}
 for path in sorted(service_paths):
     page = Page((DIST / path.lstrip('/') / 'index.html').read_text())
     language = 'ru' if path.startswith('/ru/') else 'hy'
-    slug = path.rstrip('/').split('/')[-1]
     assert page.find('html')[0]['lang'] == language
     assert len(page.find('title')) == len(page.find('h1')) == len(page.find('meta', name='description')) == 1
     assert page.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + path}]
     alternate = {
-        'hy': ORIGIN + f'/services/{slug}/',
-        'ru': ORIGIN + f'/ru/services/{slug}/',
-        'x-default': ORIGIN + f'/services/{slug}/',
+        'hy': ORIGIN + '/services/',
+        'ru': ORIGIN + '/ru/services/',
+        'x-default': ORIGIN + '/services/',
     }
     assert {a['hreflang']: a['href'] for a in page.find('link', rel='alternate')} == alternate
     assert page.find('meta', property='og:url')[0]['content'] == ORIGIN + path
     assert len(page.json) == 1
     graph = page.json[0]['@graph']
-    salon, service, webpage = graph
+    salon, webpage = graph
     assert salon['@id'] == ORIGIN + '/#salon'
     assert salon['telephone'] == '+37493000217'
     assert salon['address']['streetAddress'] == 'Ռիժկովի փողոց 3/1'
-    assert service['@type'] == 'Service' and service['provider']['@id'] == salon['@id']
-    assert service['name'] in ''.join(page.text)
     assert webpage['inLanguage'] == language and webpage['url'] == ORIGIN + path
-    assert webpage['primaryEntity']['@id'] == service['@id']
     assert page.find('a', href='https://apnt.app/solo_beauty')
     assert page.find('a', href='tel:+37493000217')
-    other = 'hair-coloring' if slug == 'manicure-pedicure' else 'manicure-pedicure'
-    prefix = '/ru' if language == 'ru' else ''
-    assert page.find('a', href=f'{prefix}/services/{other}/')
-    assert page.find('a', href=f'{"" if language == "ru" else "/ru"}/services/{slug}/', hreflang='hy' if language == 'ru' else 'ru')
+    assert ('Մատնահարդարում' if language == 'hy' else 'Маникюр') in ''.join(page.text)
+    assert ('Մազերի ներկում' if language == 'hy' else 'Окрашивание') in ''.join(page.text)
+    assert ('Պիրսինգ' if language == 'hy' else 'Пирсинг') in ''.join(page.text)
+    assert page.find('a', href='/services/' if language == 'ru' else '/ru/services/', hreflang='hy' if language == 'ru' else 'ru')
     assert page.find('link', rel='stylesheet')
     for attrs in page.find('link', rel='stylesheet'):
         assert (DIST / attrs['href'].lstrip('/')).is_file()
     assert not page.find('script', type='module')
-    print(f'PASS {path}: static service, metadata, schema, links, booking')
+    print(f'PASS {path}: static overview, metadata, schema, links, booking')
+
+for path in service_paths:
+    for slug in ('manicure-pedicure', 'hair-coloring'):
+        old_path = path + slug + '/'
+        legacy = Page((DIST / old_path.lstrip('/') / 'index.html').read_text())
+        assert not legacy.find('meta', name='robots')
+        assert legacy.find('link', rel='canonical')[0]['href'] == ORIGIN + path
+        assert legacy.find('meta', **{'http-equiv': 'refresh'})[0]['content'] == '0;url=' + ORIGIN + path
+        assert legacy.find('a', href=ORIGIN + path)
+print('PASS legacy service URLs point to consolidated overviews')
 
 card = Page((DIST / 'card/index.html').read_text())
 assert card.find('meta', name='robots')[0]['content'] == 'noindex, nofollow'

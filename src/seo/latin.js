@@ -8,8 +8,8 @@ export const latinPage = {
   heading: 'Solo Beauty — gexeckutyan srah Gyumrium',
   intro: 'Solo Beauty-n Gyumrium arajarkum e gexeckutyan ev khnamqi tsarayutyunner. Aystegh karogh eq tesnel himnakan ughghutyunnery ev yntrel amragrumi kam kapi dzevy.',
   services: [
-    ['Manikyur ev pedikyur', 'Manikyur, pedikyur ev gel-lak. Tsarayutyunnery ev azat zhamery stugeq amragrumi ejum.', '/services/manicure-pedicure/'],
-    ['Mazeri nerkum', 'Mazeri nerkman tarberaky, arjeqy ev azat zhamery chshteq srahi het kam amragrumi ejum.', '/services/hair-coloring/'],
+    ['Manikyur ev pedikyur', 'Manikyur, pedikyur ev gel-lak. Tsarayutyunnery ev azat zhamery stugeq amragrumi ejum.', '/services/'],
+    ['Mazeri nerkum', 'Mazeri nerkman tarberaky, arjeqy ev azat zhamery chshteq srahi het kam amragrumi ejum.', '/services/'],
     ['Varsahardarum', 'Kananc ev tghamardkanc ktrvacqner, nerkum, khnamq ev hardarum.', '/#services'],
     ['Dimahardarum', 'Amenorya, yerekojan ev harsanekan dimahardarum. Manramasneri hamar kapveq srahi het.', '/#services'],
     ['Honqer ev tartichner', 'Honqeri ev tartichneri tsarayutyunneri hamar tesek srahi tsarayutyunnery.', '/#services'],

@@ -10,8 +10,8 @@ export async function render(language) {
   return renderToString(<App />);
 }
 
-export function renderService(language, slug) {
-  return renderToString(<ServicePage language={language} slug={slug} />);
+export function renderService(language) {
+  return renderToString(<ServicePage language={language} />);
 }
 
 export function renderLatin() {

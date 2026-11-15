@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { pages, origin } from '../src/seo/site.js';
-import { servicePages, serviceUrl } from '../src/seo/services.js';
+import { serviceOverviews } from '../src/seo/services.js';
 import { latinPage } from '../src/seo/latin.js';
 import { seoHead, serviceSeoHead, latinSeoHead } from './seo-head.mjs';
 // React and react-dom must load in the same mode during static rendering.
@@ -40,21 +40,24 @@ try {
     await mkdir(directory, { recursive: true });
     await writeFile(`${directory}index.html`, html);
   }
-  const serviceUrls = [];
-  for (const [slug, service] of Object.entries(servicePages)) {
-    for (const language of Object.keys(pages)) {
-      const path = serviceUrl(language, slug);
-      const html = serviceTemplate
-        .replace('<!--service-seo-head-->', () => serviceSeoHead(language, slug, service))
-        .replace('<html lang="hy">', `<html lang="${language}">`)
-        .replace('<div id="root"></div>', () => `<div id="root">${renderService(language, slug)}</div>`);
-      if (html.includes('<!--service-seo-head-->') || !html.includes('<div id="root"><')) {
-        throw new Error(`Service page template incomplete: ${path}`);
-      }
-      const directory = `dist${path}`;
-      await mkdir(directory, { recursive: true });
-      await writeFile(`${directory}index.html`, html);
-      serviceUrls.push(origin + path);
+  for (const [language, page] of Object.entries(serviceOverviews)) {
+    const html = serviceTemplate
+      .replace('<!--service-seo-head-->', () => serviceSeoHead(language))
+      .replace('<html lang="hy">', `<html lang="${language}">`)
+      .replace('<div id="root"></div>', () => `<div id="root">${renderService(language)}</div>`);
+    if (html.includes('<!--service-seo-head-->') || !html.includes('<div id="root"><')) {
+      throw new Error(`Service overview incomplete: ${page.path}`);
+    }
+    await mkdir(`dist${page.path}`, { recursive: true });
+    await writeFile(`dist${page.path}index.html`, html);
+    // Keep previously published URLs usable on static hosts. Prefer server-side
+    // permanent redirects in production once hosting rules are available.
+    for (const slug of ['manicure-pedicure', 'hair-coloring']) {
+      const oldPath = `${page.path}${slug}/`;
+      const target = origin + page.path;
+      const redirect = `<!doctype html><html lang="${language}"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Solo Beauty</title></head><body><a href="${target}">${page.heading}</a></body></html>`;
+      await mkdir(`dist${oldPath}`, { recursive: true });
+      await writeFile(`dist${oldPath}index.html`, redirect);
     }
   }
   const latinHtml = serviceTemplate
@@ -67,7 +70,7 @@ try {
   await mkdir(`dist${latinPage.path}`, { recursive: true });
   await writeFile(`dist${latinPage.path}index.html`, latinHtml);
   await rm('dist/service.html');
-  const urls = [...Object.values(pages).map((page) => origin + page.path), origin + latinPage.path, ...serviceUrls];
+  const urls = [...Object.values(pages).map((page) => origin + page.path), origin + latinPage.path, ...Object.values(serviceOverviews).map((page) => origin + page.path)];
   await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${url}</loc></url>`).join('\n')}\n</urlset>\n`);
 } finally {
   await rm('dist-ssr', { recursive: true, force: true });

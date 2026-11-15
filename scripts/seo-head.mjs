@@ -1,5 +1,5 @@
 import { origin, pages, business, structuredData } from '../src/seo/site.js';
-import { serviceUrl } from '../src/seo/services.js';
+import { serviceOverviews } from '../src/seo/services.js';
 import { latinPage } from '../src/seo/latin.js';
 
 const escape = (value) => String(value).replace(/[&<>"']/g, (char) => ({
@@ -15,7 +15,6 @@ export function seoHead(language, serviceNames) {
     meta('name', 'description', page.description),
     `<link rel="canonical" href="${url}" />`,
     ...Object.entries(pages).map(([lang, value]) => `<link rel="alternate" hreflang="${lang}" href="${origin}${value.path}" />`),
-    `<link rel="alternate" hreflang="${latinPage.language}" href="${origin}${latinPage.path}" />`,
     `<link rel="alternate" hreflang="x-default" href="${origin}/" />`,
     meta('property', 'og:type', 'website'),
     meta('property', 'og:site_name', business.name),
@@ -50,9 +49,6 @@ export function latinSeoHead() {
     `<title>${escape(latinPage.title)}</title>`,
     `<meta name="description" content="${escape(latinPage.description)}" />`,
     `<link rel="canonical" href="${url}" />`,
-    ...Object.entries(pages).map(([lang, value]) => `<link rel="alternate" hreflang="${lang}" href="${origin}${value.path}" />`),
-    `<link rel="alternate" hreflang="${latinPage.language}" href="${url}" />`,
-    `<link rel="alternate" hreflang="x-default" href="${origin}/" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:url" content="${url}" />`,
     `<meta property="og:title" content="${escape(latinPage.title)}" />`,
@@ -61,24 +57,17 @@ export function latinSeoHead() {
   ].join('\n');
 }
 
-export function serviceSeoHead(language, slug, service) {
-  const page = service[language];
-  const url = origin + serviceUrl(language, slug);
-  const alternate = (lang) => origin + serviceUrl(lang, slug);
-  const serviceId = `${url}#service`;
+export function serviceSeoHead(language) {
+  const page = serviceOverviews[language];
+  const url = origin + page.path;
   const graph = {
     '@context': 'https://schema.org',
     '@graph': [
       business,
       {
-        '@type': 'Service', '@id': serviceId, name: page.heading,
-        description: page.description, provider: { '@id': business['@id'] },
-        areaServed: business.areaServed,
-      },
-      {
         '@type': 'WebPage', '@id': `${url}#webpage`, url,
         name: page.title, description: page.description, inLanguage: language,
-        about: { '@id': business['@id'] }, primaryEntity: { '@id': serviceId },
+        about: { '@id': business['@id'] },
       },
     ],
   };
@@ -87,8 +76,8 @@ export function serviceSeoHead(language, slug, service) {
     `<title>${escape(page.title)}</title>`,
     meta('name', 'description', page.description),
     `<link rel="canonical" href="${url}" />`,
-    ...['hy', 'ru'].map((lang) => `<link rel="alternate" hreflang="${lang}" href="${alternate(lang)}" />`),
-    `<link rel="alternate" hreflang="x-default" href="${alternate('hy')}" />`,
+    ...['hy', 'ru'].map((lang) => `<link rel="alternate" hreflang="${lang}" href="${origin}${serviceOverviews[lang].path}" />`),
+    `<link rel="alternate" hreflang="x-default" href="${origin}${serviceOverviews.hy.path}" />`,
     meta('property', 'og:type', 'website'),
     meta('property', 'og:site_name', business.name),
     meta('property', 'og:url', url),
