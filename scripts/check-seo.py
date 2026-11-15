@@ -76,10 +76,10 @@ for language, path, phrase in [('hy', '/', 'Մեր Ծառայություննե�
         assert (DIST / urlparse(salon[key]).path.lstrip('/')).is_file()
     print(f'PASS {path}: static body, metadata, schema, language links, anchors, assets')
 
-latin = Page((DIST / 'latin/index.html').read_text())
+latin = Page((DIST / 'latin/services/index.html').read_text())
 assert latin.find('html')[0]['lang'] == 'hy-Latn'
 assert len(latin.find('title')) == len(latin.find('h1')) == len(latin.find('meta', name='description')) == 1
-assert latin.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + '/latin/'}]
+assert latin.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + '/latin/services/'}]
 assert not latin.find('link', rel='alternate')
 assert all(term in ''.join(latin.text) for term in ('Gexeckutyan srah Gyumrium', 'Mazeri nerkum', 'Piercing'))
 assert latin.find('a', href='tel:+37493000217')
@@ -87,9 +87,9 @@ assert latin.find('a', href='https://apnt.app/solo_beauty')
 assert latin.find('a', href='https://heyzine.com/flip-book/f73b8b1dcb.html')
 assert latin.json[0]['@graph'][1]['inLanguage'] == 'hy-Latn'
 assert not latin.find('meta', name='robots')
-print('PASS /latin/: static Latin Armenian text, metadata, schema, links')
+print('PASS /latin/services/: static Latin Armenian text, metadata, schema, links')
 
-service_paths = {'/services/', '/ru/services/'}
+service_paths = {'/hy/services/', '/ru/services/'}
 for path in sorted(service_paths):
     page = Page((DIST / path.lstrip('/') / 'index.html').read_text())
     language = 'ru' if path.startswith('/ru/') else 'hy'
@@ -97,9 +97,9 @@ for path in sorted(service_paths):
     assert len(page.find('title')) == len(page.find('h1')) == len(page.find('meta', name='description')) == 1
     assert page.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + path}]
     alternate = {
-        'hy': ORIGIN + '/services/',
+        'hy': ORIGIN + '/hy/services/',
         'ru': ORIGIN + '/ru/services/',
-        'x-default': ORIGIN + '/services/',
+        'x-default': ORIGIN + '/hy/services/',
     }
     assert {a['hreflang']: a['href'] for a in page.find('link', rel='alternate')} == alternate
     assert page.find('meta', property='og:url')[0]['content'] == ORIGIN + path
@@ -116,28 +116,34 @@ for path in sorted(service_paths):
     assert ('Մատնահարդարում' if language == 'hy' else 'Маникюр') in ''.join(page.text)
     assert ('Մազերի ներկում' if language == 'hy' else 'Окрашивание') in ''.join(page.text)
     assert ('Պիրսինգ' if language == 'hy' else 'Пирсинг') in ''.join(page.text)
-    assert page.find('a', href='/services/' if language == 'ru' else '/ru/services/', hreflang='hy' if language == 'ru' else 'ru')
+    assert page.find('a', href='/hy/services/' if language == 'ru' else '/ru/services/', hreflang='hy' if language == 'ru' else 'ru')
     assert page.find('link', rel='stylesheet')
     for attrs in page.find('link', rel='stylesheet'):
         assert (DIST / attrs['href'].lstrip('/')).is_file()
     assert not page.find('script', type='module')
     print(f'PASS {path}: static overview, metadata, schema, links, booking')
 
-for path in service_paths:
-    for slug in ('manicure-pedicure', 'hair-coloring'):
-        old_path = path + slug + '/'
-        legacy = Page((DIST / old_path.lstrip('/') / 'index.html').read_text())
-        assert not legacy.find('meta', name='robots')
-        assert legacy.find('link', rel='canonical')[0]['href'] == ORIGIN + path
-        assert legacy.find('meta', **{'http-equiv': 'refresh'})[0]['content'] == '0;url=' + ORIGIN + path
-        assert legacy.find('a', href=ORIGIN + path)
+legacy_paths = {
+    '/services/': '/hy/services/',
+    '/services/manicure-pedicure/': '/hy/services/',
+    '/services/hair-coloring/': '/hy/services/',
+    '/ru/services/manicure-pedicure/': '/ru/services/',
+    '/ru/services/hair-coloring/': '/ru/services/',
+    '/latin/': '/latin/services/',
+}
+for old_path, new_path in legacy_paths.items():
+    legacy = Page((DIST / old_path.lstrip('/') / 'index.html').read_text())
+    assert not legacy.find('meta', name='robots')
+    assert legacy.find('link', rel='canonical')[0]['href'] == ORIGIN + new_path
+    assert legacy.find('meta', **{'http-equiv': 'refresh'})[0]['content'] == '0;url=' + ORIGIN + new_path
+    assert legacy.find('a', href=ORIGIN + new_path)
 print('PASS legacy service URLs point to consolidated overviews')
 
 card = Page((DIST / 'card/index.html').read_text())
 assert card.find('meta', name='robots')[0]['content'] == 'noindex, nofollow'
 assert not card.json
 sitemap = ElementTree.parse(DIST / 'sitemap.xml')
-expected_urls = {ORIGIN + '/', ORIGIN + '/ru/', ORIGIN + '/latin/'} | {ORIGIN + path for path in service_paths}
+expected_urls = {ORIGIN + '/', ORIGIN + '/ru/', ORIGIN + '/latin/services/'} | {ORIGIN + path for path in service_paths}
 assert {x.text for x in sitemap.findall('.//{*}loc')} == expected_urls
 source_sitemap = ElementTree.parse(ROOT / 'public/sitemap.xml')
 assert {x.text for x in source_sitemap.findall('.//{*}loc')} == expected_urls

@@ -50,15 +50,6 @@ try {
     }
     await mkdir(`dist${page.path}`, { recursive: true });
     await writeFile(`dist${page.path}index.html`, html);
-    // Keep previously published URLs usable on static hosts. Prefer server-side
-    // permanent redirects in production once hosting rules are available.
-    for (const slug of ['manicure-pedicure', 'hair-coloring']) {
-      const oldPath = `${page.path}${slug}/`;
-      const target = origin + page.path;
-      const redirect = `<!doctype html><html lang="${language}"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Solo Beauty</title></head><body><a href="${target}">${page.heading}</a></body></html>`;
-      await mkdir(`dist${oldPath}`, { recursive: true });
-      await writeFile(`dist${oldPath}index.html`, redirect);
-    }
   }
   const latinHtml = serviceTemplate
     .replace('<!--service-seo-head-->', () => latinSeoHead())
@@ -69,6 +60,23 @@ try {
   }
   await mkdir(`dist${latinPage.path}`, { recursive: true });
   await writeFile(`dist${latinPage.path}index.html`, latinHtml);
+  // Keep earlier public URLs usable on static hosts. Production hosting can
+  // replace these HTML forwards with permanent server redirects.
+  const legacyPaths = {
+    '/services/': serviceOverviews.hy.path,
+    '/services/manicure-pedicure/': serviceOverviews.hy.path,
+    '/services/hair-coloring/': serviceOverviews.hy.path,
+    '/ru/services/manicure-pedicure/': serviceOverviews.ru.path,
+    '/ru/services/hair-coloring/': serviceOverviews.ru.path,
+    '/latin/': latinPage.path,
+  };
+  for (const [oldPath, newPath] of Object.entries(legacyPaths)) {
+    const language = oldPath.startsWith('/ru/') ? 'ru' : oldPath.startsWith('/latin/') ? 'hy-Latn' : 'hy';
+    const target = origin + newPath;
+    const redirect = `<!doctype html><html lang="${language}"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Solo Beauty</title></head><body><a href="${target}">Solo Beauty services</a></body></html>`;
+    await mkdir(`dist${oldPath}`, { recursive: true });
+    await writeFile(`dist${oldPath}index.html`, redirect);
+  }
   await rm('dist/service.html');
   const urls = [...Object.values(pages).map((page) => origin + page.path), origin + latinPage.path, ...Object.values(serviceOverviews).map((page) => origin + page.path)];
   await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${url}</loc></url>`).join('\n')}\n</urlset>\n`);
