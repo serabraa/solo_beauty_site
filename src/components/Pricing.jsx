@@ -5,6 +5,7 @@ import { FaEye, FaTimes, FaStar, FaCheck, FaArrowRight } from 'react-icons/fa';
 import Modal from './Modal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { priceListUrl } from '../seo/links.js';
 
 export default function Pricing() {
   const { t } = useTranslation();
@@ -162,7 +163,7 @@ export default function Pricing() {
         <div className="relative w-full h-full bg-white">
           <iframe
             title="Full Price List"
-            src="https://heyzine.com/flip-book/f73b8b1dcb.html"
+            src={priceListUrl}
             className="w-full h-full"
             allowFullScreen
             loading="lazy"

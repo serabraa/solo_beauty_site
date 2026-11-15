@@ -13,6 +13,7 @@ const servicesData = [
   { key: 'epilation',  emoji: '✨',    titleKey: 'service.epilation',    descriptionKey: 'service.epilationDesc' },
   { key: 'nails',      emoji: '💅',    titleKey: 'service.nails',        descriptionKey: 'service.nailsDesc' },
   { key: 'body',       emoji: '👯‍♀️', titleKey: 'service.body',         descriptionKey: 'service.bodyDesc' },
+  { key: 'piercing',   emoji: '✨', titleKey: 'service.piercing',     descriptionKey: 'service.piercingDesc' },
   
 ];
 
