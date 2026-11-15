@@ -83,7 +83,8 @@ assert latin.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIG
 assert not latin.find('link', rel='alternate')
 assert all(term in ''.join(latin.text) for term in ('Gexeckutyan srah Gyumrium', 'Mazeri nerkum', 'Piercing'))
 assert latin.find('a', href='tel:+37493000217')
-assert latin.find('a', href='https://apnt.app/solo_beauty')
+assert latin.find('a', href='/') and 'Avelin Solo Beauty-i masin →' in ''.join(latin.text)
+assert not latin.find('a', href='https://apnt.app/solo_beauty')
 assert latin.find('a', href='https://heyzine.com/flip-book/f73b8b1dcb.html')
 assert latin.json[0]['@graph'][1]['inLanguage'] == 'hy-Latn'
 assert not latin.find('meta', name='robots')
@@ -110,7 +111,9 @@ for path in sorted(service_paths):
     assert salon['telephone'] == '+37493000217'
     assert salon['address']['streetAddress'] == 'Ռիժկովի փողոց 3/1'
     assert webpage['inLanguage'] == language and webpage['url'] == ORIGIN + path
-    assert page.find('a', href='https://apnt.app/solo_beauty')
+    assert page.find('a', href='/ru/' if language == 'ru' else '/')
+    assert ('Подробнее о Solo Beauty →' if language == 'ru' else 'Ավելին Solo Beauty-ի մասին →') in ''.join(page.text)
+    assert not page.find('a', href='https://apnt.app/solo_beauty')
     assert page.find('a', href='https://heyzine.com/flip-book/f73b8b1dcb.html')
     assert page.find('a', href='tel:+37493000217')
     assert ('Մատնահարդարում' if language == 'hy' else 'Маникюр') in ''.join(page.text)
@@ -121,7 +124,7 @@ for path in sorted(service_paths):
     for attrs in page.find('link', rel='stylesheet'):
         assert (DIST / attrs['href'].lstrip('/')).is_file()
     assert not page.find('script', type='module')
-    print(f'PASS {path}: static overview, metadata, schema, links, booking')
+    print(f'PASS {path}: static overview, metadata, schema, links')
 
 legacy_paths = {
     '/services/': '/hy/services/',
