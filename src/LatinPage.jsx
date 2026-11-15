@@ -2,7 +2,7 @@ import React from 'react';
 import LogoMark from './components/LogoMark';
 import { business } from './seo/site.js';
 import { latinPage } from './seo/latin.js';
-import { priceListUrl } from './seo/links.js';
+import PriceListCard from './components/PriceListCard.jsx';
 
 export default function LatinPage() {
   return (
@@ -21,11 +21,11 @@ export default function LatinPage() {
       <main className="max-w-4xl mx-auto px-6 py-12 sm:py-20">
         <h1 className="text-3xl sm:text-4xl font-bold text-pink-500 mb-6">{latinPage.heading}</h1>
         <p className="text-lg text-gray-200 max-w-3xl mb-8">{latinPage.intro}</p>
-        <div className="flex flex-wrap gap-4 mb-5">
+        <div className="flex flex-wrap gap-4 mb-8">
           <a href={business.potentialAction.target.urlTemplate} className="inline-flex items-center px-5 py-3 bg-pink-500 text-black font-semibold rounded-md hover:bg-pink-400">Tesnel azat zhamery</a>
           <a href="tel:+37493000217" className="inline-flex items-center px-5 py-3 border border-pink-500 text-white rounded-md hover:text-pink-500">Kapvel srahi het</a>
         </div>
-        <a href={priceListUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mb-12 text-sm text-gray-300 underline underline-offset-4 decoration-pink-500 hover:text-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pink-500">Tesnel gnacutsaky <span aria-hidden="true">↗</span></a>
+        <PriceListCard title="Amboghjakan gnacutsak" description="Tesnel bolor tsarayutyunneri gnery" />
         <section aria-label="Tsarayutyunner" className="border-t border-white/20">
           {latinPage.services.map(([name, description, href]) => (
             <div key={name} className="py-7 border-b border-white/20 sm:grid sm:grid-cols-[12rem_1fr] gap-6">

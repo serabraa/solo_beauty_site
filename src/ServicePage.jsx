@@ -2,7 +2,7 @@ import React from 'react';
 import LogoMark from './components/LogoMark';
 import { business } from './seo/site.js';
 import { serviceOverviews } from './seo/services.js';
-import { priceListUrl } from './seo/links.js';
+import PriceListCard from './components/PriceListCard.jsx';
 
 export default function ServicePage({ language }) {
   const copy = serviceOverviews[language];
@@ -23,11 +23,11 @@ export default function ServicePage({ language }) {
       <main className="max-w-4xl mx-auto px-6 py-12 sm:py-20">
         <h1 className="text-3xl sm:text-4xl font-bold text-pink-500 mb-6">{copy.heading}</h1>
         <p className="text-lg text-gray-200 max-w-3xl mb-8">{copy.intro}</p>
-        <div className="flex flex-wrap gap-4 mb-5">
+        <div className="flex flex-wrap gap-4 mb-8">
           <a href={business.potentialAction.target.urlTemplate} className="inline-flex items-center px-5 py-3 bg-pink-500 text-black font-semibold rounded-md hover:bg-pink-400">{copy.booking}</a>
           <a href="tel:+37493000217" className="inline-flex items-center px-5 py-3 border border-pink-500 text-white rounded-md hover:text-pink-500">{copy.contact}</a>
         </div>
-        <a href={priceListUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mb-12 text-sm text-gray-300 underline underline-offset-4 decoration-pink-500 hover:text-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pink-500">{copy.priceList} <span aria-hidden="true">↗</span></a>
+        <PriceListCard title={copy.priceList} description={copy.priceListDescription} />
         <section aria-label={copy.servicesLabel} className="border-t border-white/20">
           {copy.services.map(([name, description]) => (
             <div key={name} className="py-7 border-b border-white/20 sm:grid sm:grid-cols-[12rem_1fr] gap-6">
