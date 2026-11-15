@@ -47,7 +47,7 @@ for language, path, phrase in [('hy', '/', 'Մեր Ծառայություննե�
     assert phrase in ''.join(page.text)
     assert len(page.find('meta', name='description')) == 1
     assert page.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + path}]
-    expected = {'hy': ORIGIN + '/', 'ru': ORIGIN + '/ru/', 'x-default': ORIGIN + '/'}
+    expected = {'hy': ORIGIN + '/', 'ru': ORIGIN + '/ru/', 'hy-Latn': ORIGIN + '/latin/', 'x-default': ORIGIN + '/'}
     assert {a['hreflang']: a['href'] for a in page.find('link', rel='alternate')} == expected
     assert page.find('meta', property='og:url')[0]['content'] == ORIGIN + path
     assert not page.find('meta', name='robots')
@@ -57,7 +57,8 @@ for language, path, phrase in [('hy', '/', 'Մեր Ծառայություննե�
     assert salon['@id'] == ORIGIN + '/#salon'
     assert salon['telephone'] == '+37493000217'
     assert 'aggregateRating' not in salon and 'geo' not in salon and 'priceRange' not in salon
-    assert len(salon['hasOfferCatalog']['itemListElement']) == 9
+    assert len(salon['hasOfferCatalog']['itemListElement']) == 10
+    assert ('Պիրսինգ' if language == 'hy' else 'Пирсинг') in ''.join(page.text)
     assert graph[1]['inLanguage'] == language
     assert graph[1]['url'] == ORIGIN + path
     assert all(offer['itemOffered']['name'] in ''.join(page.text) for offer in salon['hasOfferCatalog']['itemListElement'])
@@ -74,6 +75,18 @@ for language, path, phrase in [('hy', '/', 'Մեր Ծառայություննե�
     for key in ('logo', 'image'):
         assert (DIST / urlparse(salon[key]).path.lstrip('/')).is_file()
     print(f'PASS {path}: static body, metadata, schema, language links, anchors, assets')
+
+latin = Page((DIST / 'latin/index.html').read_text())
+assert latin.find('html')[0]['lang'] == 'hy-Latn'
+assert len(latin.find('title')) == len(latin.find('h1')) == len(latin.find('meta', name='description')) == 1
+assert latin.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + '/latin/'}]
+assert {a['hreflang']: a['href'] for a in latin.find('link', rel='alternate')} == expected
+assert all(term in ''.join(latin.text) for term in ('Gexeckutyan srah Gyumrium', 'Mazeri nerkum', 'Piercing'))
+assert latin.find('a', href='tel:+37493000217')
+assert latin.find('a', href='https://apnt.app/solo_beauty')
+assert latin.json[0]['@graph'][1]['inLanguage'] == 'hy-Latn'
+assert not latin.find('meta', name='robots')
+print('PASS /latin/: static Latin Armenian text, metadata, schema, links')
 
 service_paths = {
     f'{prefix}/services/{slug}/'
@@ -120,7 +133,7 @@ card = Page((DIST / 'card/index.html').read_text())
 assert card.find('meta', name='robots')[0]['content'] == 'noindex, nofollow'
 assert not card.json
 sitemap = ElementTree.parse(DIST / 'sitemap.xml')
-expected_urls = {ORIGIN + '/', ORIGIN + '/ru/'} | {ORIGIN + path for path in service_paths}
+expected_urls = {ORIGIN + '/', ORIGIN + '/ru/', ORIGIN + '/latin/'} | {ORIGIN + path for path in service_paths}
 assert {x.text for x in sitemap.findall('.//{*}loc')} == expected_urls
 source_sitemap = ElementTree.parse(ROOT / 'public/sitemap.xml')
 assert {x.text for x in source_sitemap.findall('.//{*}loc')} == expected_urls

@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server';
 import App from './App.jsx';
 import i18n from './i18.js';
 import ServicePage from './ServicePage.jsx';
+import LatinPage from './LatinPage.jsx';
 
 export async function render(language) {
   await i18n.changeLanguage(language);
@@ -11,4 +12,8 @@ export async function render(language) {
 
 export function renderService(language, slug) {
   return renderToString(<ServicePage language={language} slug={slug} />);
+}
+
+export function renderLatin() {
+  return renderToString(<LatinPage />);
 }

@@ -1,5 +1,6 @@
 import { origin, pages, business, structuredData } from '../src/seo/site.js';
 import { serviceUrl } from '../src/seo/services.js';
+import { latinPage } from '../src/seo/latin.js';
 
 const escape = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -14,6 +15,7 @@ export function seoHead(language, serviceNames) {
     meta('name', 'description', page.description),
     `<link rel="canonical" href="${url}" />`,
     ...Object.entries(pages).map(([lang, value]) => `<link rel="alternate" hreflang="${lang}" href="${origin}${value.path}" />`),
+    `<link rel="alternate" hreflang="${latinPage.language}" href="${origin}${latinPage.path}" />`,
     `<link rel="alternate" hreflang="x-default" href="${origin}/" />`,
     meta('property', 'og:type', 'website'),
     meta('property', 'og:site_name', business.name),
@@ -31,6 +33,31 @@ export function seoHead(language, serviceNames) {
     meta('name', 'twitter:description', page.description),
     meta('name', 'twitter:image', `${origin}/og-image.jpg`),
     `<script type="application/ld+json">${JSON.stringify(structuredData(language, serviceNames)).replace(/</g, '\\u003c')}</script>`,
+  ].join('\n');
+}
+
+export function latinSeoHead() {
+  const url = origin + latinPage.path;
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [business, {
+      '@type': 'WebPage', '@id': `${url}#webpage`, url,
+      name: latinPage.title, description: latinPage.description,
+      inLanguage: latinPage.language, about: { '@id': business['@id'] },
+    }],
+  };
+  return [
+    `<title>${escape(latinPage.title)}</title>`,
+    `<meta name="description" content="${escape(latinPage.description)}" />`,
+    `<link rel="canonical" href="${url}" />`,
+    ...Object.entries(pages).map(([lang, value]) => `<link rel="alternate" hreflang="${lang}" href="${origin}${value.path}" />`),
+    `<link rel="alternate" hreflang="${latinPage.language}" href="${url}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${origin}/" />`,
+    `<meta property="og:type" content="website" />`,
+    `<meta property="og:url" content="${url}" />`,
+    `<meta property="og:title" content="${escape(latinPage.title)}" />`,
+    `<meta property="og:description" content="${escape(latinPage.description)}" />`,
+    `<script type="application/ld+json">${JSON.stringify(graph).replace(/</g, '\\u003c')}</script>`,
   ].join('\n');
 }
 
