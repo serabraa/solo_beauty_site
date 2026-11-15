@@ -2,6 +2,7 @@ import React from 'react';
 import LogoMark from './components/LogoMark';
 import { business } from './seo/site.js';
 import { latinPage } from './seo/latin.js';
+import { priceListUrl } from './seo/links.js';
 
 export default function LatinPage() {
   return (
@@ -23,6 +24,7 @@ export default function LatinPage() {
         <div className="flex flex-wrap gap-4 mb-14">
           <a href={business.potentialAction.target.urlTemplate} className="inline-flex items-center px-5 py-3 bg-pink-500 text-black font-semibold rounded-md hover:bg-pink-400">Tesnel azat zhamery</a>
           <a href="tel:+37493000217" className="inline-flex items-center px-5 py-3 border border-pink-500 text-white rounded-md hover:text-pink-500">Kapvel srahi het</a>
+          <a href={priceListUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-5 py-3 border border-pink-500 text-white rounded-md hover:text-pink-500">Tesnel gnacutsaky</a>
         </div>
         <section aria-label="Tsarayutyunner" className="border-t border-white/20">
           {latinPage.services.map(([name, description, href]) => (

@@ -84,6 +84,7 @@ assert not latin.find('link', rel='alternate')
 assert all(term in ''.join(latin.text) for term in ('Gexeckutyan srah Gyumrium', 'Mazeri nerkum', 'Piercing'))
 assert latin.find('a', href='tel:+37493000217')
 assert latin.find('a', href='https://apnt.app/solo_beauty')
+assert latin.find('a', href='https://heyzine.com/flip-book/f73b8b1dcb.html')
 assert latin.json[0]['@graph'][1]['inLanguage'] == 'hy-Latn'
 assert not latin.find('meta', name='robots')
 print('PASS /latin/: static Latin Armenian text, metadata, schema, links')
@@ -110,6 +111,7 @@ for path in sorted(service_paths):
     assert salon['address']['streetAddress'] == 'Ռիժկովի փողոց 3/1'
     assert webpage['inLanguage'] == language and webpage['url'] == ORIGIN + path
     assert page.find('a', href='https://apnt.app/solo_beauty')
+    assert page.find('a', href='https://heyzine.com/flip-book/f73b8b1dcb.html')
     assert page.find('a', href='tel:+37493000217')
     assert ('Մատնահարդարում' if language == 'hy' else 'Маникюр') in ''.join(page.text)
     assert ('Մազերի ներկում' if language == 'hy' else 'Окрашивание') in ''.join(page.text)
