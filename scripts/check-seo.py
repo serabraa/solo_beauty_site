@@ -9,6 +9,7 @@ from xml.etree import ElementTree
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
 ORIGIN = 'https://solobeauty.am'
+CHAT_WIDGET = 'https://code.jivosite.com/widget/ImApjEXB3J'
 
 
 class Page(HTMLParser):
@@ -42,6 +43,7 @@ class Page(HTMLParser):
 
 for language, path, phrase in [('hy', '/', 'Մեր Ծառայությունները'), ('ru', '/ru/', 'Услуги')]:
     page = Page((DIST / path.lstrip('/') / 'index.html').read_text())
+    assert len(page.find('script', src=CHAT_WIDGET, **{'async': None})) == 1
     assert page.find('html')[0]['lang'] == language
     assert len(page.find('title')) == len(page.find('h1')) == 1
     assert phrase in ''.join(page.text)
@@ -77,6 +79,7 @@ for language, path, phrase in [('hy', '/', 'Մեր Ծառայություննե�
     print(f'PASS {path}: static body, metadata, schema, language links, anchors, assets')
 
 latin = Page((DIST / 'latin/services/index.html').read_text())
+assert len(latin.find('script', src=CHAT_WIDGET, **{'async': None})) == 1
 assert latin.find('html')[0]['lang'] == 'hy-Latn'
 assert len(latin.find('title')) == len(latin.find('h1')) == len(latin.find('meta', name='description')) == 1
 assert latin.find('link', rel='canonical') == [{'rel': 'canonical', 'href': ORIGIN + '/latin/services/'}]
@@ -93,6 +96,7 @@ print('PASS /latin/services/: static Latin Armenian text, metadata, schema, link
 service_paths = {'/hy/services/', '/ru/services/'}
 for path in sorted(service_paths):
     page = Page((DIST / path.lstrip('/') / 'index.html').read_text())
+    assert len(page.find('script', src=CHAT_WIDGET, **{'async': None})) == 1
     language = 'ru' if path.startswith('/ru/') else 'hy'
     assert page.find('html')[0]['lang'] == language
     assert len(page.find('title')) == len(page.find('h1')) == len(page.find('meta', name='description')) == 1
